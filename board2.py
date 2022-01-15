@@ -294,9 +294,9 @@ class miniBoard(Board):
         pygame.draw.rect(screen, red, pygame.Rect(marge + 3 * taille_case, marge + 2 * taille_case // 3, taille_case,taille_case // 3))
         pygame.draw.rect(screen, red, pygame.Rect(marge + 4 * taille_case, marge + 2 * taille_case // 3, taille_case,taille_case // 3))
 
-        pygame.draw.rect(screen, yellow,pygame.Rect(marge + 6*taille_case, marge + 2 * taille_case // 3, taille_case, taille_case // 3))
-        pygame.draw.rect(screen, yellow, pygame.Rect(marge + 7* taille_case, marge + 2 * taille_case // 3, taille_case,taille_case // 3))
-        pygame.draw.rect(screen, yellow, pygame.Rect(marge + 9* taille_case, marge + 2 * taille_case // 3, taille_case,taille_case // 3))
+        pygame.draw.rect(screen, jaune,pygame.Rect(marge + 6*taille_case, marge + 2 * taille_case // 3, taille_case, taille_case // 3))
+        pygame.draw.rect(screen, jaune, pygame.Rect(marge + 7* taille_case, marge + 2 * taille_case // 3, taille_case,taille_case // 3))
+        pygame.draw.rect(screen, jaune, pygame.Rect(marge + 9* taille_case, marge + 2 * taille_case // 3, taille_case,taille_case // 3))
 
         pygame.draw.rect(screen, bleu_ciel,pygame.Rect(marge + taille_case, marge + 10 * taille_case, taille_case, taille_case // 3))
         pygame.draw.rect(screen, bleu_ciel, pygame.Rect(marge + 2 * taille_case, marge + 10 * taille_case, taille_case,taille_case // 3))
@@ -309,13 +309,13 @@ class miniBoard(Board):
         pygame.draw.rect(screen, orange,pygame.Rect(marge + 2 * taille_case // 3, marge + 2*taille_case, taille_case // 3, taille_case))
         pygame.draw.rect(screen, orange,pygame.Rect(marge + 2 * taille_case // 3, marge + 4*taille_case, taille_case // 3, taille_case))
 
-        pygame.draw.rect(screen, pink ,pygame.Rect(marge + 2 * taille_case // 3, marge + 6*taille_case, taille_case // 3, taille_case))
-        pygame.draw.rect(screen, pink,pygame.Rect(marge + 2 * taille_case // 3, marge + 7 * taille_case, taille_case // 3,taille_case))
-        pygame.draw.rect(screen, pink,pygame.Rect(marge + 2 * taille_case // 3, marge + 9 * taille_case, taille_case // 3,taille_case))
+        pygame.draw.rect(screen, violet ,pygame.Rect(marge + 2 * taille_case // 3, marge + 6*taille_case, taille_case // 3, taille_case))
+        pygame.draw.rect(screen, violet,pygame.Rect(marge + 2 * taille_case // 3, marge + 7 * taille_case, taille_case // 3,taille_case))
+        pygame.draw.rect(screen, violet,pygame.Rect(marge + 2 * taille_case // 3, marge + 9 * taille_case, taille_case // 3,taille_case))
 
-        pygame.draw.rect(screen, green,pygame.Rect(marge + 10 * taille_case , marge + taille_case, taille_case // 3, taille_case))
-        pygame.draw.rect(screen, green,pygame.Rect(marge + 10 * taille_case, marge + 2*taille_case, taille_case // 3, taille_case))
-        pygame.draw.rect(screen, green,pygame.Rect(marge + 10 * taille_case, marge + 4*taille_case, taille_case // 3, taille_case))
+        pygame.draw.rect(screen, vert,pygame.Rect(marge + 10 * taille_case , marge + taille_case, taille_case // 3, taille_case))
+        pygame.draw.rect(screen, vert,pygame.Rect(marge + 10 * taille_case, marge + 2*taille_case, taille_case // 3, taille_case))
+        pygame.draw.rect(screen, vert,pygame.Rect(marge + 10 * taille_case, marge + 4*taille_case, taille_case // 3, taille_case))
 
         pygame.draw.rect(screen, bleu_fonce,pygame.Rect(marge + 10 * taille_case, marge + 7*taille_case, taille_case // 3, taille_case))
         pygame.draw.rect(screen, bleu_fonce,pygame.Rect(marge + 10 * taille_case, marge + 9*taille_case, taille_case // 3, taille_case))
@@ -471,7 +471,7 @@ if __name__ == "__main__":
                                Player(2, "B", position=16),
                                Player(3, "C", position=16),
                                Player(4, "D", position=8)], 1)
-    sleep(4)
+    sleep(15)
     pygame.quit()
 
 
