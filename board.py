@@ -1,3 +1,8 @@
+def print_basic_text(screen,text,x_init,y_init,font_size = 15,color = black):
+    text_to_write = text_format(text, font_size, color)
+    rect_text = text_to_write.get_rect()
+    screen.blit(text_to_write, (x_init - (rect_text[2] / 2), y_init))
+
 from player import *
 from propriete import *
 import random
@@ -27,11 +32,6 @@ def read_properties(file):
     for i in range(len(split_lines)):
         list_properties.append(Property(*split_lines[i][:9]))  # Initialisation de chaque propriété avec les informations données dans le fichier
     return list_properties
-
-def print_basic_text(screen,text,x_init,y_init,font_size = 15,color = black):
-    text_to_write = text_format(text, font_size, color)
-    rect_text = text_to_write.get_rect()
-    screen.blit(text_to_write, (x_init - (rect_text[2] / 2), y_init))
 
 def mini_bijection(i: int,x_init : int, y_init : int, size : int):
     if (i == 0):
