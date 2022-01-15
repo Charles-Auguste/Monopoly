@@ -1,0 +1,13 @@
+//name, id, id monopole, value, owner, nb_houses, price_houses, rent without houses, rent with 1 house, ..., rent with 1 hotel, color
+Bd_Copernic 1 1 60 0 0 50 2 4 6 8 10 12 148,72,40
+Rue_A.Nobel 4 1 60 0 0 50 2 4 6 8 10 12 148,72,40
+Bd_Newton 5 1 100 0 0 50 5 10 15 20 25 30 148,72,40
+Av_Ampere 7 2 100 0 0 50 6 12 18 24 30 36 186,228,250
+Av_B.Pascal 10 2 120 0 0 50 6 12 18 24 30 36 186,228,250
+Bd_Descartes 11 2 140 0 0 100 10 20 30 40 50 60 186,228,250
+Av_N.Mandela 14 3 140 0 0 100 10 20 30 40 50 60 31,165,76
+Rue_Galilee 16 3 160 0 0 100 10 20 30 40 50 60 31,165,76
+Av_desgoffe 17 3 300 0 0 100 10 20 30 40 50 60 31,165,76
+Rue_de_Var 19 4 300 0 0 100 10 20 30 40 50 60 2,104,179
+Rue_du_Bac 22 4 320 0 0 100 10 20 30 40 50 60 2,104,179
+Av_du_depart 23 4 350 0 0 100 10 20 30 40 50 60 2,104,179
