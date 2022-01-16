@@ -1,9 +1,5 @@
-def print_basic_text(screen,text,x_init,y_init,font_size = 15,color = black):
-    text_to_write = text_format(text, font_size, color)
-    rect_text = text_to_write.get_rect()
-    screen.blit(text_to_write, (x_init - (rect_text[2] / 2), y_init))
-
 from player import *
+
 from propriete import *
 import random
 import pygame
@@ -12,6 +8,11 @@ from text_input import text_format
 from time import sleep
 from pygame.locals import *
 from PIL import Image
+
+def print_basic_text(screen,text,x_init,y_init,font_size = 15,color = black):
+    text_to_write = text_format(text, font_size, color)
+    rect_text = text_to_write.get_rect()
+    screen.blit(text_to_write, (x_init - (rect_text[2] / 2), y_init))
 
 pygame.init()
 
