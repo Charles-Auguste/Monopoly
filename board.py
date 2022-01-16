@@ -1,5 +1,6 @@
-from player import *
 
+
+from player import *
 from propriete import *
 import random
 import pygame
@@ -8,15 +9,14 @@ from text_input import text_format
 from time import sleep
 from pygame.locals import *
 from PIL import Image
+from color import *
+
+pygame.init()
 
 def print_basic_text(screen,text,x_init,y_init,font_size = 15,color = black):
     text_to_write = text_format(text, font_size, color)
     rect_text = text_to_write.get_rect()
     screen.blit(text_to_write, (x_init - (rect_text[2] / 2), y_init))
-
-pygame.init()
-
-
 
 def read_properties(file):
     """Prend en entrée un fichier qui contient les informations des propriétés, renvoie une liste de Properties initialisées à l'aide du fichier"""
@@ -199,6 +199,11 @@ class Board:
             print(" \n \n You earned ", value, "€ \n \n")
 
 
+
+
+
+
+
 class miniBoard(Board):
     def __init__(self):
             # Plus complexe parce qu'il faut différencier toutes les cases
@@ -327,29 +332,29 @@ class miniBoard(Board):
                     (x_init + 45 * size // 70 - taxes_width // 2, y_init + 65 * size // 70 - taxes_height // 2))
 
         #display main_player's case
-        for player in list_players:
-            if player.id() == id_main_player:
-                self.cases()[player.position()].show_case(x_init + size//2 - 150, y_init + size//2 - 170, screen)
+        for i in range(1,len(list_players)):
+            if list_players[i].id() == id_main_player:
+                self.cases()[list_players[i].position()].show_case(x_init + size//2 - 150, y_init + size//2 - 170, screen)
 
         #display players position
-        for player in list_players:
-            x_position, y_position = mini_bijection(player.position(),x_init,y_init, size)
-            if player.id() == 2:
+        for i in range(1,len(list_players)):
+            x_position, y_position = mini_bijection(list_players[i].position(),x_init,y_init, size)
+            if list_players[i].id() == 2:
                 pion2 = pygame.image.load('pictures/MINI_PION2.png')
                 pion2_width, pion2_height = pion2.get_size()
                 screen.blit(pion2,
                             (x_position + 2*size//70 - pion2_width//2, y_position - 3*size//70 - pion2_height//2))
-            if player.id() == 1:
+            if list_players[i].id() == 1:
                 pion1 = pygame.image.load('pictures/MINI_PION1.png')
                 pion1_width, pion1_height = pion1.get_size()
                 screen.blit(pion1,
                             (x_position - 2*size//70 - pion1_width//2, y_position - 3*size//70 - pion1_height//2))
-            if player.id() == 3:
+            if list_players[i].id() == 3:
                 pion3 = pygame.image.load('pictures/MINI_PION3.png')
                 pion3_width, pion3_height = pion3.get_size()
                 screen.blit(pion3,
                             (x_position - 2*size//70 - pion3_width//2, y_position + 3*size//70 - pion3_height//2))
-            if player.id() == 4:
+            if list_players[i].id() == 4:
                 pion4 = pygame.image.load('pictures/MINI_PION4.png')
                 pion4_width, pion4_height = pion4.get_size()
                 screen.blit(pion4,
@@ -362,28 +367,27 @@ class miniBoard(Board):
             if (i!= 0 and i!=3 and i!=6 and i!=9 and i!=12 and i!=15 and i!=18 and i!= 21 and i!=8 and i!=2 and i!=20 and i!=13):
                 print_basic_text(screen,self.cases()[i].name(),x_position,y_position - size//70)
 
-
-
-
-
-
         # Update the display
         pygame.display.update()
+        return 0
+
 
 
 if __name__ == "__main__":
     main_screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
     screen_width, screen_height = main_screen.get_size()
     pygame.draw.rect(main_screen,white,Rect(0,0,screen_width,screen_height))
+
+    list_player = [Player(1, "A", position=0),
+                   Player(2, "B", position=4),
+                   Player(3, "C", position=13),
+                   Player(4, "D", position=20)]
+
     pygame.display.update()
+
     test_board = miniBoard()
-    Go = True
-    test_board.show_board(main_screen, 100, 100, 700,
-                              [Player(1, "A", position=16),
-                               Player(2, "B", position=16),
-                               Player(3, "C", position=16),
-                               Player(4, "D", position=8)], 1)
-    sleep(10)
+    test_board.show_board(main_screen, 100, 100, 700,list_player, 1)
+    sleep(5)
     pygame.quit()
 
 

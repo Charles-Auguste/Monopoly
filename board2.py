@@ -145,33 +145,38 @@ class Board:
         self._cases = [Case("Start", 0)]
         c = 0
         for i in range(1, 40):
+
             if (i == 2 or i == 7 or i == 17 or i == 22 or i == 33 or i == 36):
                 self._cases.append(Luck(i))
-            elif (i == 4):
+            elif (i == 4 or i == 38):
                 self._cases.append(Taxes(i, 100))
-            elif (i == 38):
-                self._cases.append(Taxes(i, 200))
+
             elif (i == 10):
                 self._cases.append(Prison())
             elif (i == 20):
                 self._cases.append(Case("Free Park", i))
             elif (i == 30):
                 self._cases.append(GoToPrison())
-            elif (i == 12):
-                self._cases.append(Company(i, "Compagnie des eaux"))
-            elif (i == 28):
-                self._cases.append(Company(i, "Compagnie d'électricité"))
+
             elif (i == 5):
-                self._cases.append(TrainStation("Gare Montparnasse", i))
+                self._cases.append(TrainStation("Montparnasse", i))
             elif (i == 15):
-                self._cases.append(TrainStation("Gare de Lyon", i))
+                self._cases.append(TrainStation("Lyon", i))
             elif (i == 25):
-                self._cases.append(TrainStation("Gare du Nord", i))
+                self._cases.append(TrainStation("Est", i))
             elif (i == 35):
-                self._cases.append(TrainStation("Gare Saint Lazare", i))
+                self._cases.append(TrainStation("St Lazare", i))
+
+            elif (i == 12):
+                self._cases.append(TrainStation("Electricté", i))
+            elif (i == 28):
+                self._cases.append(TrainStation("Eau", i))
+
             else:
                 self._cases.append(properties[c])
+                print(properties[c].name())
                 c += 1
+                # print (i)
             self._nb_spaces = 40
 
     ## Accesseurs ##
@@ -247,7 +252,7 @@ class miniBoard(Board):
             # Plus complexe parce qu'il faut différencier toutes les cases
             # Mettre le bon nom de fichier puis ne plus y toucher
         properties = read_properties("properties.txt")
-        print(properties)
+        #print(properties)
         self._cases = [Case("Start", 0)]
         c = 0
         for i in range(1, 40):
@@ -280,6 +285,7 @@ class miniBoard(Board):
 
             else:
                 self._cases.append(properties[c])
+                print(properties[c].name())
                 c += 1
             #print (i)
             self._nb_spaces = 40
@@ -294,9 +300,9 @@ class miniBoard(Board):
         pygame.draw.rect(screen, red, pygame.Rect(marge + 3 * taille_case, marge + 2 * taille_case // 3, taille_case,taille_case // 3))
         pygame.draw.rect(screen, red, pygame.Rect(marge + 4 * taille_case, marge + 2 * taille_case // 3, taille_case,taille_case // 3))
 
-        pygame.draw.rect(screen, yellow,pygame.Rect(marge + 6*taille_case, marge + 2 * taille_case // 3, taille_case, taille_case // 3))
-        pygame.draw.rect(screen, yellow, pygame.Rect(marge + 7* taille_case, marge + 2 * taille_case // 3, taille_case,taille_case // 3))
-        pygame.draw.rect(screen, yellow, pygame.Rect(marge + 9* taille_case, marge + 2 * taille_case // 3, taille_case,taille_case // 3))
+        pygame.draw.rect(screen, jaune,pygame.Rect(marge + 6*taille_case, marge + 2 * taille_case // 3, taille_case, taille_case // 3))
+        pygame.draw.rect(screen, jaune, pygame.Rect(marge + 7* taille_case, marge + 2 * taille_case // 3, taille_case,taille_case // 3))
+        pygame.draw.rect(screen, jaune, pygame.Rect(marge + 9* taille_case, marge + 2 * taille_case // 3, taille_case,taille_case // 3))
 
         pygame.draw.rect(screen, bleu_ciel,pygame.Rect(marge + taille_case, marge + 10 * taille_case, taille_case, taille_case // 3))
         pygame.draw.rect(screen, bleu_ciel, pygame.Rect(marge + 2 * taille_case, marge + 10 * taille_case, taille_case,taille_case // 3))
@@ -309,13 +315,13 @@ class miniBoard(Board):
         pygame.draw.rect(screen, orange,pygame.Rect(marge + 2 * taille_case // 3, marge + 2*taille_case, taille_case // 3, taille_case))
         pygame.draw.rect(screen, orange,pygame.Rect(marge + 2 * taille_case // 3, marge + 4*taille_case, taille_case // 3, taille_case))
 
-        pygame.draw.rect(screen, pink ,pygame.Rect(marge + 2 * taille_case // 3, marge + 6*taille_case, taille_case // 3, taille_case))
-        pygame.draw.rect(screen, pink,pygame.Rect(marge + 2 * taille_case // 3, marge + 7 * taille_case, taille_case // 3,taille_case))
-        pygame.draw.rect(screen, pink,pygame.Rect(marge + 2 * taille_case // 3, marge + 9 * taille_case, taille_case // 3,taille_case))
+        pygame.draw.rect(screen, violet ,pygame.Rect(marge + 2 * taille_case // 3, marge + 6*taille_case, taille_case // 3, taille_case))
+        pygame.draw.rect(screen, violet,pygame.Rect(marge + 2 * taille_case // 3, marge + 7 * taille_case, taille_case // 3,taille_case))
+        pygame.draw.rect(screen, violet,pygame.Rect(marge + 2 * taille_case // 3, marge + 9 * taille_case, taille_case // 3,taille_case))
 
-        pygame.draw.rect(screen, green,pygame.Rect(marge + 10 * taille_case , marge + taille_case, taille_case // 3, taille_case))
-        pygame.draw.rect(screen, green,pygame.Rect(marge + 10 * taille_case, marge + 2*taille_case, taille_case // 3, taille_case))
-        pygame.draw.rect(screen, green,pygame.Rect(marge + 10 * taille_case, marge + 4*taille_case, taille_case // 3, taille_case))
+        pygame.draw.rect(screen, vert,pygame.Rect(marge + 10 * taille_case , marge + taille_case, taille_case // 3, taille_case))
+        pygame.draw.rect(screen, vert,pygame.Rect(marge + 10 * taille_case, marge + 2*taille_case, taille_case // 3, taille_case))
+        pygame.draw.rect(screen, vert,pygame.Rect(marge + 10 * taille_case, marge + 4*taille_case, taille_case // 3, taille_case))
 
         pygame.draw.rect(screen, bleu_fonce,pygame.Rect(marge + 10 * taille_case, marge + 7*taille_case, taille_case // 3, taille_case))
         pygame.draw.rect(screen, bleu_fonce,pygame.Rect(marge + 10 * taille_case, marge + 9*taille_case, taille_case // 3, taille_case))
@@ -376,13 +382,15 @@ class miniBoard(Board):
 
         print_basic_text(screen,self.cases()[5].name(),marge + 11*taille_case//2, 32*taille_case//3)
         print_basic_text(screen, self.cases()[15].name(), marge + taille_case//2, marge + 11*taille_case//2)
-        print_basic_text(screen, self.cases()[25].name(), marge + 11*taille_case//2, taille_case//3)
+        print_basic_text(screen, self.cases()[25].name(), marge + 11*taille_case//2, 2*taille_case//3)
         print_basic_text(screen, self.cases()[35].name(), marge +21*taille_case//2, marge + 11*taille_case//2)
 
         print_basic_text(screen, "Start", marge +21*taille_case//2, marge +21*taille_case//2)
         print_basic_text(screen, "Jail", marge + taille_case//2, marge +21*taille_case//2)
         print_basic_text(screen, "Free Park", marge + taille_case//2, marge + taille_case//2)
         print_basic_text(screen, "Go to Jail", marge +21*taille_case//2, marge + taille_case//2)
+        print_basic_text(screen, "Eau", marge + 17 * taille_case // 2, marge + taille_case // 2)
+        print_basic_text(screen, "Electricté", marge + taille_case // 2, marge + 17*taille_case // 2)
 
         luck = pygame.image.load('pictures/MINI_CHANCE.png')
         luck_width, luck_height = luck.get_size()
@@ -399,62 +407,36 @@ class miniBoard(Board):
         screen.blit(taxes,(marge + 21*taille_case//2 - taxes_width // 2, marge + 17*taille_case//2- taxes_height // 2))
 
         for i in range(len(self.cases())):
-            x_position, y_position = mini_bijection(i,marge,taille_case)
-            #if (i!= 0 and i!=3 and i!=6 and i!=9 and i!=12 and i!=15 and i!=18 and i!= 21 and i!=8 and i!=2 and i!=20 and i!=13):
-            #print(i)
-            #print_basic_text(screen,self.cases()[i].name(),x_position,y_position)
+            x_position, y_position = mini_bijection(i,marge,height_marge)
+            if (i!= 0 and i!=2 and i!=4 and i!=5 and i!=7 and i!=10 and i!=12 and i!=15 and i!= 17 and i!=20 and i!=22 and i!=25 and i!=28 and i!=38 and i!=33 and i!=36 and i!=30 and i!=35):
+                print(i)
+                print_basic_text(screen,self.cases()[i].name(),x_position,y_position)
+
 
         for player in list_players:
             if player.id() == id_main_player:
                 self.cases()[player.position()].show_case(height_marge//2 - 150, height_marge//2 - 170, screen)
 
-        '''
         for player in list_players:
-            x_position, y_position = mini_bijection(player.position(),marge, taille_case)
+            x_position, y_position = mini_bijection(player.position(),marge, height_marge)
             print(x_position,y_position)
             if player.id() == 2:
                 pion2 = pygame.image.load('pictures/MINI_PION2.png')
                 pion2_width, pion2_height = pion2.get_size()
-                screen.blit(pion2,
-                            (x_position , y_position ))
-        
+                screen.blit(pion2,(x_position  - pion2_width//2, y_position - pion2_height//2))
             if player.id() == 1:
                 pion1 = pygame.image.load('pictures/MINI_PION1.png')
                 pion1_width, pion1_height = pion1.get_size()
-                screen.blit(pion1,
-                            (x_position - 2*taille_case//70 - pion1_width//2, y_position - 3*taille_case//70 - pion1_height//2))
+                screen.blit(pion1,(x_position  - pion1_width//2, y_position - pion1_height//2))
             if player.id() == 3:
                 pion3 = pygame.image.load('pictures/MINI_PION3.png')
                 pion3_width, pion3_height = pion3.get_size()
-                screen.blit(pion3,
-                            (x_position - 2*taille_case//70 - pion3_width//2, y_position + 3*taille_case//70 - pion3_height//2))
+                screen.blit(pion3,(x_position - pion3_width//2, y_position - pion3_height//2))
             if player.id() == 4:
                 pion4 = pygame.image.load('pictures/MINI_PION4.png')
                 pion4_width, pion4_height = pion4.get_size()
-                screen.blit(pion4,
-                            (x_position + 2*taille_case//70 - pion4_width//2, y_position + 3*taille_case//70 - pion4_height//2))
-            
-            
-            #==================================================================================================
-            # Mini board Specificities (recommended size : 700 px, less than 10 char in teh name of properties)
-            # =================================================================================================
-    
-            # Name of classic cases
-    
-            # show luck and tax cases
-    
-            #display main_player's case
-    
-            #display players position
-    
-    
-            #display property names
-    
-    
-    
-    
-    
-            '''
+                screen.blit(pion4,(x_position  - pion4_width//2, y_position - pion4_height//2))
+
         # Update the display
         pygame.display.update()
 
@@ -466,11 +448,7 @@ if __name__ == "__main__":
     pygame.display.update()
     test_board = miniBoard()
     Go = True
-    test_board.show_board(main_screen,
-                              [Player(1, "A", position=16),
-                               Player(2, "B", position=16),
-                               Player(3, "C", position=16),
-                               Player(4, "D", position=8)], 1)
+    test_board.show_board(main_screen,[Player(1, "A", position=1),Player(2, "B", position=2),Player(3, "C", position=3),Player(4, "D", position=8)], 1)
     sleep(4)
     pygame.quit()
 
