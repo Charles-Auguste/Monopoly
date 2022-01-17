@@ -89,18 +89,9 @@ class Property(Case):
     def set_nb_houses(self,n):
         self._nb_houses=n
 
-    def print_information(self):
-        print("\n Name of the property : ", self._name)
-        print("\n Price of a house : ",self._price_houses)
-        print("\n Number of houses : ", self._nb_houses)
-        for i in range(5):
-            print("\n Price of the rent with : ", i, "houses : ", self._rent[i])
-        print("\n Price of the rent with a hotel : ", self._rent[5])
-
     def show_case(self, x_init, y_init,screen):
         pygame.draw.rect(screen, white, pygame.Rect(x_init, y_init, 300, 340))
         pygame.draw.rect(screen, black, pygame.Rect(x_init + 5, y_init + 5 , 290, 330), 4)
-        print(self.color)
         pygame.draw.rect(screen, self.color, pygame.Rect(x_init + 10, y_init + 10, 280, 70))
 
         if self.nb_houses() >= 1 and self.nb_houses() != 5:

@@ -67,12 +67,12 @@ class Player:
     def set_round_in_prison(self,round_prison):
         self._round_in_prison = round_prison
 
-    def show_player(self, screen, height):
+    def show_player(self, screen, height, resize_factor):
         if self.id() == 1:
-            screen.blit(pion1, (position_possible[self.position()][0]*height//22 - pion1_width//2, position_possible[self.position()][1]*height//22 - pion1_height//2))
+            screen.blit(pion1, (position_possible[self.position()][0]*height*resize_factor[0]//22 - pion1_width//2, position_possible[self.position()][1]*height*resize_factor[1]//22 - pion1_height//2))
         elif self.id() == 2:
-            screen.blit(pion2, (position_possible[self.position()][0]*height//22 - pion2_width//2, position_possible[self.position()][1]*height//22 - pion2_height//2))
+            screen.blit(pion2, (position_possible[self.position()][0]*height*resize_factor[0]//22 - pion2_width//2, position_possible[self.position()][1]*height*resize_factor[1]//22 - pion2_height//2))
         elif self.id() == 3:
-            screen.blit(pion3, (position_possible[self.position()][0]*height//22 - pion3_width//2, position_possible[self.position()][1]*height//22 - pion3_height//2))
+            screen.blit(pion3, (position_possible[self.position()][0]*height*resize_factor[0]//22 - pion3_width//2, position_possible[self.position()][1]*height*resize_factor[1]//22 - pion3_height//2))
         elif self.id() == 4:
-            screen.blit(pion4, (position_possible[self.position()][0]*height//22 - pion4_width//2, position_possible[self.position()][1]*height//22 - pion4_height//2))
+            screen.blit(pion4, (position_possible[self.position()][0]*height*resize_factor[0]//22 - pion4_width//2, position_possible[self.position()][1]*height*resize_factor[1]//22 - pion4_height//2))

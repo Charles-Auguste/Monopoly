@@ -194,7 +194,7 @@ class Board:
         properties = read_properties("properties.txt")
         with open("nom.txt", "r") as tf:
             self._nom = tf.read().split('\n')
-        print("nom=",self._nom)
+        print("nom=", self._nom)
         self._cases = [Case("Start", 0)]
         c = 0
         n = 0
@@ -463,12 +463,10 @@ class miniBoard(Board):
         self._cases = [Case("Start", 0)]
         c = 0
         for i in range(1, 24):
-
             if (i == 8 or i==20):
                 self._cases.append(Luck(i))
             elif (i == 2 or i== 13):
                 self._cases.append(Taxes(i, 100))
-
             elif (i == 6):
                 self._cases.append(Prison())
             elif (i == 12):
