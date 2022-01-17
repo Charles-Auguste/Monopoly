@@ -1,5 +1,4 @@
 
-
 from player import *
 from propriete import *
 import random
