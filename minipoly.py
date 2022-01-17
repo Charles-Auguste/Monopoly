@@ -80,7 +80,7 @@ class Game():
         """
         play: bool = True
         selection_cursor = 0
-        nb_players = -1
+        nb_players = -1 
         title_screen = pygame.image.load('pictures/title_screen.jpg')
         title_screen = title_screen.convert()
         picture_width, picture_height = title_screen.get_size()
