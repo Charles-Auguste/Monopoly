@@ -296,15 +296,15 @@ class Game():
     def print_player_info(self, player, main_player):
         if main_player:
             self.main_screen.blit(text_format("It's " + player.name() + "'s turn!", 20, black),
-                                  (23 * self.width // 40, self.height // 20))
+                                  (770 , self.height // 20))
             self.main_screen.blit(
                 text_format(player.name() + "'s bank account : " + str(player.money()) + " €", 13, black),
-                (23 * self.width // 40, self.height // 10))
+                (770, self.height // 10))
 
         property_player = self.game_board.list_property(player)
         if len(property_player) > 0:
             self.main_screen.blit(text_format(player.name() + "'s properties :", 13, black),
-                                  (23 * self.width // 40 + (1 - main_player) * self.width // 4, self.height // 10 + 12))
+                                  (770 + (1 - main_player) * self.width // 4, self.height // 10 + 12))
 
         for i in range(1, len(property_player) + 1):
             if (property_player[i - 1].type() == "Property"):
@@ -312,37 +312,37 @@ class Game():
                 if (nb_houses < 5):
                     self.main_screen.blit(text_format(
                         " " + str(i) + " - " + property_player[i - 1].name() + " - Number of houses : " + str(
-                            nb_houses), 13, black), (23 * self.width // 40 + (1 - main_player) * self.width // 4,
+                            nb_houses), 13, black), (770 + (1 - main_player) * self.width // 4,
                                                      self.height // 10 + (i + 1) * 12))
                 else:
                     self.main_screen.blit(
                         text_format(" " + str(i) + " - " + property_player[i - 1].name() + " - Number of hotels : 1",
                                     13, black),
-                        (23 * self.width // 40 + (1 - main_player) * self.width // 4, self.height // 10 + (i + 1) * 12))
+                        (770 + (1 - main_player) * self.width // 4, self.height // 10 + (i + 1) * 12))
             else:
                 self.main_screen.blit(text_format(" " + str(i) + " - " + property_player[i - 1].name(), 13, black), (
-                23 * self.width // 40 + (1 - main_player) * self.width // 4, self.height // 10 + (i + 1) * 12))
+                770 + (1 - main_player) * self.width // 4, self.height // 10 + (i + 1) * 12))
 
         pygame.display.update()
 
     def clear_bottom_panel(self):
-        clear_rectangle = pygame.Rect(23 * self.width // 40, 75 * self.height // 100, 17 * self.width // 40,
+        clear_rectangle = pygame.Rect(770, 75 * self.height // 100, self.width - 770,
                                       25 * self.height // 100)
         pygame.draw.rect(self.main_screen, pygame.Color("white"), clear_rectangle)
 
     def clear_right_panel(self):
-        clear_rectangle = pygame.Rect(33 * self.width // 40, 0, 17 * self.width // 40, 75 * self.height // 100)
+        clear_rectangle = pygame.Rect(30 * self.width // 40, 0, 17 * self.width // 40, 75 * self.height // 100)
         pygame.draw.rect(self.main_screen, pygame.Color("white"), clear_rectangle)
 
     def print_instruction(self, instruction_1, instruction_2, yes_no_choice):
         """affiche des instructions pour le joueur, éventuellement un choix, en bas de l'écran à droite, on rend ensuite la réponse du joueur, 0 si pas de choix, -1 si quitte"""
         self.clear_bottom_panel()
         text_instruction_1 = text_format(instruction_1, 13, black)
-        self.main_screen.blit(text_instruction_1, (23 * self.width // 40, 75 * self.height // 100))
+        self.main_screen.blit(text_instruction_1, (770, 75 * self.height // 100))
 
         if instruction_2 != None:
             text_instruction_2 = text_format(instruction_2, 13, black)
-            self.main_screen.blit(text_instruction_2, (23 * self.width // 40, 77 * self.height // 100))
+            self.main_screen.blit(text_instruction_2, (770, 77 * self.height // 100))
         pygame.display.update()
 
         chosing = (yes_no_choice != None)
@@ -372,8 +372,8 @@ class Game():
                 choice0 = text_format(yes_no_choice[0], 13, black)
                 choice1 = text_format(yes_no_choice[1], 13, red)
 
-            self.main_screen.blit(choice0, (23 * self.width // 40, 77 * self.height // 100))
-            self.main_screen.blit(choice1, (27 * self.width // 40, 77 * self.height // 100))
+            self.main_screen.blit(choice0, (770, 77 * self.height // 100))
+            self.main_screen.blit(choice1, (770 + 200, 77 * self.height // 100))
             pygame.display.update()
 
         if yes_no_choice == None:
@@ -398,8 +398,8 @@ class Game():
         if text != None:
             self.clear_bottom_panel()
             instruction_text = text_format(text, 13, black)
-            self.main_screen.blit(instruction_text, (23 * self.width // 40, 75 * self.height / 100))
-        response_text = input.Text_input_box(200, 40, 23 * self.width // 40, 89 * self.height / 100,
+            self.main_screen.blit(instruction_text, (770, 75 * self.height / 100))
+        response_text = input.Text_input_box(200, 40, 770, 89 * self.height / 100,
                                              screen=self.main_screen)
         response = ""
         while response == "":
@@ -410,28 +410,29 @@ class Game():
         self.clear_bottom_panel()
 
         choice_text = text_format("Select the action you want to make :", 13, black)
-        self.main_screen.blit(choice_text, (23 * self.width // 40, 75 * self.height // 100))
+        self.main_screen.blit(choice_text, (770, 75 * self.height // 100))
         choice_text = text_format(
             "1 - Display information about one of your properties (Does not work for train stations or companies)", 13,
             black)
-        self.main_screen.blit(choice_text, (23 * self.width // 40, 77 * self.height // 100))
+        self.main_screen.blit(choice_text, (770, 77 * self.height // 100))
         choice_text = text_format("2 - Build a house", 13, black)
-        self.main_screen.blit(choice_text, (23 * self.width // 40, 79 * self.height // 100))
+        self.main_screen.blit(choice_text, (770, 79 * self.height // 100))
         choice_text = text_format("3 - Sell a house", 13, black)
-        self.main_screen.blit(choice_text, (23 * self.width // 40, 81 * self.height // 100))
+        self.main_screen.blit(choice_text, (770, 81 * self.height // 100))
         choice_text = text_format("4 - Display information about the properties of another player", 13, black)
-        self.main_screen.blit(choice_text, (23 * self.width // 40, 83 * self.height // 100))
+        self.main_screen.blit(choice_text, (770, 83 * self.height // 100))
         choice_text = text_format("5 - Make an offer to another player", 13, black)
-        self.main_screen.blit(choice_text, (23 * self.width // 40, 85 * self.height // 100))
+        self.main_screen.blit(choice_text, (770, 85 * self.height // 100))
         choice_text = text_format("6 - End your turn", 13, black)
-        self.main_screen.blit(choice_text, (23 * self.width // 40, 87 * self.height // 100))
+        self.main_screen.blit(choice_text, (770, 87 * self.height // 100))
 
         pygame.display.update()
         answer = self.enter_response(None)
         return answer
 
     def player_tour(self,player):
-        self.game_board.show_board(self.main_screen,30,self.height//2 - 350,700,self.players,player.id())
+        self.main_screen.fill(white)
+        self.game_board.show_board(self.main_screen,30,self.height//2 - 350,700,self.players,player.id())   # Passer le 700 dans la fonction
         pygame.draw.rect(self.main_screen, black,pygame.Rect(760, 20 , 5, self.height - 40))
         self.print_player_info(player, True)
         self.print_instruction("Time for " + player.name() + " to play !", None, None)
