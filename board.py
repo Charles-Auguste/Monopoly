@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> f2fe0010081c57f87d2c5da1b5480f91f48fdf1e
 from player import *
 from propriete import *
 import random
