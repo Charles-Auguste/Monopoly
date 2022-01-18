@@ -88,13 +88,8 @@ class Game():
         """
         play: bool = True
         selection_cursor = 0
-<<<<<<< HEAD
         nb_players = -1
         title_screen = pygame.image.load('monopoly/pictures/title_screen.jpg')
-=======
-        nb_players = -1 
-        title_screen = pygame.image.load('pictures/title_screen.jpg')
->>>>>>> 69e81547f7f4b256bc6b2a33f7cfebea0d0ddb12
         title_screen = title_screen.convert()
         picture_width, picture_height = title_screen.get_size()
         while play:
