@@ -1,7 +1,7 @@
 import random
-import affichage as aff
-from propriete import *
-from player import *
+from Monopoly_lite import affichage as aff
+from monopoly.propriete import *
+from monopoly.player import *
 
 def read_properties(file):
     """Prend en entrée un fichier qui contient les informations des propriétés, renvoie une liste de Properties initialisées à l'aide du fichier"""
@@ -29,7 +29,7 @@ class Board:
         else:
             # Plus complexe parce qu'il faut différencier toutes les cases
             # Mettre le bon nom de fichier puis ne plus y toucher
-            properties = read_properties("properties.txt")
+            properties = read_properties("../config/properties.txt")
             self._cases = [Case("Start",0)]
             c=0
             for i in range(1,40):

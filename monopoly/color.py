@@ -1,3 +1,10 @@
+"""
+color.py
+Author : TDLOG group A
+Date : 24/01/2022
+Comments : fully functional (18/01/2022)
+"""
+
 white = (255, 255, 255)
 black = (0, 0, 0)
 gray = (50, 50, 50)

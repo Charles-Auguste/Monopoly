@@ -1,10 +1,10 @@
-from player import *
-from propriete import *
-from board import Board, miniBoard, mini_bijection, read_properties
+from monopoly.player import *
+from monopoly.propriete import *
+from monopoly.board import Board, miniBoard, mini_bijection, read_properties
 import random
 import pygame
-import text_input as input
-from text_input import text_format
+from monopoly import text_input as input
+from monopoly.text_input import text_format
 from time import sleep
 from pygame.locals import *
 from PIL import Image

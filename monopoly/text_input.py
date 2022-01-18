@@ -1,9 +1,22 @@
-import pygame_textinput
-from utility_functions import *
+"""
+text_input.py
+Author : TDLOG group A
+Date : 24/01/2022
+Comments : fully functional (18/01/2022)
+"""
+
+# Standard library
+import time
 import pygame
 import pygame.locals as pl
-from color import *
-import time
+
+# 3rd party packages
+import pygame_textinput
+
+#local import
+from monopoly.utility_functions import *
+from monopoly.color import *
+
 pygame.init()
 
 screen_width, screen_height = 1500,1500

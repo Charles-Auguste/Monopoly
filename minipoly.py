@@ -1,17 +1,25 @@
-from player import *
-from propriete import *
-from board import Board, miniBoard, mini_bijection, read_properties
+"""
+minipoly.py
+Author : TDLOG group A
+Date : 24/01/2022
+Comments :
+"""
+
+# Standard library
 import random
 import pygame
-import text_input as input
-from text_input import text_format
-from time import sleep
 from pygame.locals import *
-from PIL import Image
-from color import *
+from time import sleep
+
+# local source
+from monopoly.player import Player
+from monopoly.propriete import Property, Prison, GoToPrison, Taxes, TrainStation, Company, Case, Luck
+from monopoly.board import Board, miniBoard
+from monopoly import text_input as input
+from monopoly.text_input import text_format
+from monopoly.color import *
 
 pygame.init()
-
 
 class Game():
     def __init__(self):
@@ -30,7 +38,7 @@ class Game():
         play: bool = True
         selected = "start"
         game_on = True
-        title_screen = pygame.image.load('pictures/title_screen.jpg')
+        title_screen = pygame.image.load('monopoly/pictures/title_screen.jpg')
         title_screen = title_screen.convert()
         picture_width, picture_height = title_screen.get_size()
         while play:
@@ -81,7 +89,7 @@ class Game():
         play: bool = True
         selection_cursor = 0
         nb_players = -1
-        title_screen = pygame.image.load('pictures/title_screen.jpg')
+        title_screen = pygame.image.load('monopoly/pictures/title_screen.jpg')
         title_screen = title_screen.convert()
         picture_width, picture_height = title_screen.get_size()
         while play:
@@ -137,7 +145,7 @@ class Game():
         :param nb_player: the number of player
         :return: -1 if exit, 0 if everything is ok
         """
-        title_screen = pygame.image.load('pictures/title_screen.jpg')
+        title_screen = pygame.image.load('monopoly/pictures/title_screen.jpg')
         title_screen = title_screen.convert()
         picture_width, picture_height = title_screen.get_size()
         name_1 = ""
@@ -167,23 +175,23 @@ class Game():
             text_player3 = input.Text_input_box(200, 40, self.width / 2, self.height / 2 + 140, screen=self.main_screen)
             text_player4 = input.Text_input_box(200, 40, self.width / 2, self.height / 2 + 210, screen=self.main_screen)
 
-            pion1 = pygame.image.load('pictures/PION1.png')
+            pion1 = pygame.image.load('monopoly/pictures/PION1.png')
             pion1_width, pion1_height = pion1.get_size()
             self.main_screen.blit(pion1,
                                   (self.width / 2 - 80 - pion1_width / 2, self.height / 2  - pion1_height / 2))
 
-            pion2 = pygame.image.load('pictures/PION2.png')
+            pion2 = pygame.image.load('monopoly/pictures/PION2.png')
             pion2_width, pion2_height = pion2.get_size()
             self.main_screen.blit(pion2,
                                   (self.width / 2 - 80 - pion2_width / 2, self.height / 2 + 70 - pion2_height / 2))
 
             if (nb_player >= 3):
-                pion3 = pygame.image.load('pictures/PION3.png')
+                pion3 = pygame.image.load('monopoly/pictures/PION3.png')
                 pion3_width, pion3_height = pion3.get_size()
                 self.main_screen.blit(pion3,
                                       (self.width / 2 - 80 - pion3_width / 2, self.height / 2 + 140 - pion3_height / 2))
             if (nb_player >= 4):
-                pion4 = pygame.image.load('pictures/PION4.png')
+                pion4 = pygame.image.load('monopoly/pictures/PION4.png')
 
                 pion4_width, pion4_height = pion4.get_size()
                 self.main_screen.blit(pion4,
@@ -784,7 +792,7 @@ class Game():
 
     # END OF THE GAME
     def end_game(self, winning_player):
-        end_screen = pygame.image.load('pictures/end_screen.jpg')
+        end_screen = pygame.image.load('monopoly/pictures/end_screen.jpg')
         end_screen = end_screen.convert()
         play = (winning_player != -1)
         while play:

@@ -1,11 +1,20 @@
-from player import Player
+"""
+propriete.py
+Author : TDLOG group A
+Date : 24/01/2022
+Comments : fully functional (18/01/2022)
+"""
+
+# Standard library
 import random
 import pygame
 import pygame.locals as pl
-from color import *
+
+# Local source
+from monopoly.player import Player
+from monopoly.color import *
 
 pygame.init()
-
 
 def text_format(message, textSize, textColor):
     newFont = pygame.font.SysFont("Consolas", textSize)
