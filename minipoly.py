@@ -88,8 +88,13 @@ class Game():
         """
         play: bool = True
         selection_cursor = 0
+<<<<<<< HEAD
         nb_players = -1
         title_screen = pygame.image.load('monopoly/pictures/title_screen.jpg')
+=======
+        nb_players = -1 
+        title_screen = pygame.image.load('pictures/title_screen.jpg')
+>>>>>>> 69e81547f7f4b256bc6b2a33f7cfebea0d0ddb12
         title_screen = title_screen.convert()
         picture_width, picture_height = title_screen.get_size()
         while play:
@@ -304,7 +309,7 @@ class Game():
     def print_player_info(self, player, main_player):
         if main_player:
             self.main_screen.blit(text_format("It's " + player.name() + "'s turn!", 20, black),
-                                  (770 , self.height // 20))
+                                  (770, self.height // 20))
             self.main_screen.blit(
                 text_format(player.name() + "'s bank account : " + str(player.money()) + " €", 13, black),
                 (770, self.height // 10))
@@ -312,7 +317,7 @@ class Game():
         property_player = self.game_board.list_property(player)
         if len(property_player) > 0:
             self.main_screen.blit(text_format(player.name() + "'s properties :", 13, black),
-                                  (770 + (1 - main_player) * self.width // 4, self.height // 10 + 12))
+                                  (770, self.height // 10 + 12))
 
         for i in range(1, len(property_player) + 1):
             if (property_player[i - 1].type() == "Property"):
@@ -320,16 +325,16 @@ class Game():
                 if (nb_houses < 5):
                     self.main_screen.blit(text_format(
                         " " + str(i) + " - " + property_player[i - 1].name() + " - Number of houses : " + str(
-                            nb_houses), 13, black), (770 + (1 - main_player) * self.width // 4,
+                            nb_houses), 13, black), (770,
                                                      self.height // 10 + (i + 1) * 12))
                 else:
                     self.main_screen.blit(
                         text_format(" " + str(i) + " - " + property_player[i - 1].name() + " - Number of hotels : 1",
                                     13, black),
-                        (770 + (1 - main_player) * self.width // 4, self.height // 10 + (i + 1) * 12))
+                        (770, self.height // 10 + (i + 1) * 12))
             else:
                 self.main_screen.blit(text_format(" " + str(i) + " - " + property_player[i - 1].name(), 13, black), (
-                770 + (1 - main_player) * self.width // 4, self.height // 10 + (i + 1) * 12))
+                770, self.height // 10 + (i + 1) * 12))
 
         pygame.display.update()
 
@@ -339,7 +344,7 @@ class Game():
         pygame.draw.rect(self.main_screen, pygame.Color("white"), clear_rectangle)
 
     def clear_right_panel(self):
-        clear_rectangle = pygame.Rect(30 * self.width // 40, 0, 17 * self.width // 40, 75 * self.height // 100)
+        clear_rectangle = pygame.Rect(770, 0, self.width - 770, 75 * self.height // 100)
         pygame.draw.rect(self.main_screen, pygame.Color("white"), clear_rectangle)
 
     def print_instruction(self, instruction_1, instruction_2, yes_no_choice):
@@ -736,6 +741,7 @@ class Game():
                                     self.print_instruction("This player you chose does not have any property", None,
                                                            None)
                                 else:
+                                    self.clear_right_panel()
                                     self.print_player_info(self.players[id_seller], False)
                                     id_seller_property = int(self.enter_response(
                                         "Which property belonging to the other player do you want ? Enter the id diplayed in their recap above :"))
@@ -747,6 +753,8 @@ class Game():
                                             "You can't buy a house in a monopole where some houses are built", None,
                                             None)
                                     else:
+                                        self.clear_right_panel()
+                                        self.print_player_info(player, True)
                                         id_buyer_property = int(self.enter_response(
                                             "Which property do you offer ? Enter the id diplayed in your recap above :"))
                                         if id_buyer_property < 1 or id_buyer_property > len(property_player):

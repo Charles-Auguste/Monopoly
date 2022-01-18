@@ -98,18 +98,9 @@ class Property(Case):
     def set_nb_houses(self,n):
         self._nb_houses=n
 
-    def print_information(self):
-        print("\n Name of the property : ", self._name)
-        print("\n Price of a house : ",self._price_houses)
-        print("\n Number of houses : ", self._nb_houses)
-        for i in range(5):
-            print("\n Price of the rent with : ", i, "houses : ", self._rent[i])
-        print("\n Price of the rent with a hotel : ", self._rent[5])
-
     def show_case(self, x_init, y_init,screen):
         pygame.draw.rect(screen, white, pygame.Rect(x_init, y_init, 300, 340))
         pygame.draw.rect(screen, black, pygame.Rect(x_init + 5, y_init + 5 , 290, 330), 4)
-        print(self.color)
         pygame.draw.rect(screen, self.color, pygame.Rect(x_init + 10, y_init + 10, 280, 70))
 
         if self.nb_houses() >= 1 and self.nb_houses() != 5:
@@ -189,38 +180,38 @@ class Luck(Case):
     def __init__(self,id):
         super().__init__("Luck",id)
 
-    def action(self, p : Player):
+    def action(self, player, print_instruction):
         n = random.randint(1,8)
         if (n==1):
-            print(" Allez en prison. Allez tout droit à la prison. Ne passez pas par la case départ, ne reçevez pas 200€.\n")
-            p.set_free(False)
-            p.set_position(10)
+            print_instruction(" Allez en prison. Allez tout droit à la prison. Ne passez pas par la case départ, ne reçevez pas 200€.", None, None)
+            player.set_free(False)
+            player.set_position(10)
         if (n==2):
-            print(" Rendez-vous Rue de La Paix. Si vous passez par la case départ, recevez 200€.\n")
-            if (p.position()>39):
-                p.set_money(p.money()+200)
-            p.set_position(39)
+            print_instruction(" Rendez-vous Rue de La Paix. Si vous passez par la case départ, recevez 200€.", None, None)
+            if (player.position()>39):
+                player.set_money(player.money()+200)
+            player.set_position(39)
         if (n==3):
-            print(" Rendez-vous Avenue Henri Martin. Si vous passez par la case départ, recevez 200€.\n")
-            if(p.position()>24):
-                p.set_money(p.money()+200)
-            p.set_position(24)
+            print_instruction(" Rendez-vous Avenue Henri Martin. Si vous passez par la case départ, recevez 200€.", None, None)
+            if(player.position()>24):
+                player.set_money(player.money()+200)
+            player.set_position(24)
         if (n==4):
-            print(" Rendez-vous case Départ. Recevez 400€.\n")
-            p.set_position(0)
-            p.set_money(p.money()+400)
+            print_instruction(" Rendez-vous case Départ. Recevez 400€.", None, None)
+            player.set_position(0)
+            player.set_money(player.money()+400)
         if (n == 5):
-            print(" La banque vous verse un dividende de 50€.\n")
-            p.set_money(p.money()+50)
+            print_instruction(" La banque vous verse un dividende de 50€.", None, None)
+            player.set_money(player.money()+50)
         if (n == 6):
-            print(" Vous êtes libéré de prison. Cette carte peut être conservée jusqu'à ce qu'elle soit utilisée ou vendue.\n")
-            p.set_escape_card(p.escape_card()+1)
+            print_instruction(" Vous êtes libéré de prison. Cette carte peut être conservée jusqu'à ce qu'elle soit utilisée ou vendue.", None, None)
+            player.set_escape_card(player.escape_card()+1)
         if (n == 7):
-            print(" Amende pour excès de vitesse. Payez 50€.\n")
-            p.set_money(p.money()-50)
+            print_instruction(" Amende pour excès de vitesse. Payez 50€.", None, None)
+            player.set_money(player.money()-50)
         if (n == 8):
-            print(" Amende pour ivresse. Payez 50€.\n")
-            p.set_money(p.money()-50)
+            print_instruction(" Amende pour ivresse. Payez 50€.", None, None)
+            player.set_money(player.money()-50)
 
     def show_case(self, x_init, y_init,screen):
         pygame.draw.rect(screen, white, pygame.Rect(x_init, y_init, 300, 340))
@@ -256,27 +247,27 @@ class Prison(Case):
     def __init__(self):
         super().__init__("Prison",10)
 
-    def exit_prison(self,player : Player):
+    def exit_prison(self, player):
         player.set_free(True)
         player.set_money(player.money()-50)
         player.set_round_in_prison(0)
         return True
 
-    def rounds_passed(self,player : Player):
+    def rounds_passed(self, player, print_instruction):
         if (player.round_in_prison()==3):
-            print(" You can exit the prison !\n")
+            print_instruction(" You can exit the prison !", None, None)
             return self.exit_prison(player)
         else :
-            print(" You can't exit the prison...\n")
+            print_instruction(" You can't exit the prison...", None, None)
             player.set_round_in_prison(player.round_in_prison()+1)
             return False
 
-    def trying_to_escape_prison(self, dice_1, dice_2, player: Player):
+    def trying_to_escape_prison(self, dice_1, dice_2, player, print_instruction):
         if (dice_1==dice_2):
-            print(" You can exit the prison ! But you have to pay 50€.\n")
+            print_instruction(" You can exit the prison ! But you have to pay 50€.", None, None)
             return self.exit_prison(player)
         else:
-            return self.rounds_passed(player)
+            return self.rounds_passed(player, print_instruction)
 
     def show_case(self, x_init, y_init,screen):
         pygame.draw.rect(screen, white, pygame.Rect(x_init, y_init, 300, 340))

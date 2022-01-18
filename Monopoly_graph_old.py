@@ -27,6 +27,7 @@ class Game:
         
         self.main_screen = pygame.display.set_mode((0,0),pygame.FULLSCREEN)
         self.width, self.height  = self.main_screen.get_size()
+        self.resize_factor = (1,1)
         self.playing_status = (self.run_main_menu() != -1) #booleen qui vaut True si on est en train de jouer le jeu, False sinon (il faut alors tout fermer, etc...)
         
         if self.playing_status:
@@ -281,42 +282,42 @@ class Game:
 
     def print_player_info(self, player, main_player):
         if main_player:
-            self.main_screen.blit(text_format("It's " + player.name() + "'s turn!", 20, black), (23*self.width//40, self.height//20))
-            self.main_screen.blit(text_format(player.name() + "'s bank account : " + str(player.money()) + " €", 13, black),(23*self.width//40, self.height//10))
+            self.main_screen.blit(text_format("It's " + player.name() + "'s turn!", 20, black), (self.height + 10, self.height//20))
+            self.main_screen.blit(text_format(player.name() + "'s bank account : " + str(player.money()) + " €", 13, black),(self.height + 10, self.height//10))
         
         property_player = self.game_board.list_property(player)        
         if len(property_player) > 0:
-            self.main_screen.blit(text_format(player.name() + "'s properties :", 13, black), (23*self.width//40 + (1-main_player)*self.width//4, self.height//10 + 12))
+            self.main_screen.blit(text_format(player.name() + "'s properties :", 13, black), (self.height + 10, self.height//10 + 12))
         
         for i in range(1,len(property_player)+1):
             if (property_player[i-1].type()=="Property"):
                 nb_houses = property_player[i - 1].nb_houses()
                 if (nb_houses < 5):
-                    self.main_screen.blit(text_format(" " + str(i) + " - " + property_player[i - 1].name() + " - Number of houses : " + str(nb_houses), 13, black), (23*self.width//40 + (1-main_player)*self.width//4, self.height//10 + (i+1)*12))
+                    self.main_screen.blit(text_format(" " + str(i) + " - " + property_player[i - 1].name() + " - Number of houses : " + str(nb_houses), 13, black), (self.height + 10, self.height//10 + (i+1)*12))
                 else:
-                    self.main_screen.blit(text_format(" " + str(i) + " - " + property_player[i - 1].name() + " - Number of hotels : 1", 13, black), (23*self.width//40 + (1-main_player)*self.width//4, self.height//10 + (i+1)*12))
+                    self.main_screen.blit(text_format(" " + str(i) + " - " + property_player[i - 1].name() + " - Number of hotels : 1", 13, black), (self.height + 10, self.height//10 + (i+1)*12))
             else:
-                self.main_screen.blit(text_format(" " + str(i) + " - " + property_player[i - 1].name(), 13, black),  (23*self.width//40 + (1-main_player)*self.width//4, self.height//10 + (i+1)*12))
+                self.main_screen.blit(text_format(" " + str(i) + " - " + property_player[i - 1].name(), 13, black),  (self.height + 10, self.height//10 + (i+1)*12))
 
         pygame.display.update()
 
     def clear_bottom_panel(self):
-        clear_rectangle = pygame.Rect(23*self.width//40, 75*self.height//100, 17*self.width//40, 25*self.height//100)
+        clear_rectangle = pygame.Rect(self.height + 10, 75*self.height//100, self.width - (self.height + 10), 25*self.height//100)
         pygame.draw.rect(self.main_screen, pygame.Color("white"), clear_rectangle)
     
     def clear_right_panel(self):
-        clear_rectangle = pygame.Rect(33*self.width//40, 0, 17*self.width//40, 75*self.height//100)
+        clear_rectangle = pygame.Rect(self.height + 10, 0, self.width - (self.height + 10), 70*self.height//100)
         pygame.draw.rect(self.main_screen, pygame.Color("white"), clear_rectangle)
 
     def print_instruction(self, instruction_1, instruction_2, yes_no_choice):
         """affiche des instructions pour le joueur, éventuellement un choix, en bas de l'écran à droite, on rend ensuite la réponse du joueur, 0 si pas de choix, -1 si quitte"""
         self.clear_bottom_panel()
         text_instruction_1 = text_format(instruction_1, 13, black)
-        self.main_screen.blit(text_instruction_1, (23*self.width//40, 75*self.height//100))
+        self.main_screen.blit(text_instruction_1, (self.height + 10, 75*self.height//100))
 
         if instruction_2 != None:
             text_instruction_2 = text_format(instruction_2, 13, black)
-            self.main_screen.blit(text_instruction_2, (23*self.width//40, 77*self.height//100))
+            self.main_screen.blit(text_instruction_2, (self.height + 10, 77*self.height//100))
         pygame.display.update()
 
         chosing = (yes_no_choice != None)
@@ -346,7 +347,7 @@ class Game:
                 choice0 = text_format(yes_no_choice[0], 13, black)
                 choice1 = text_format(yes_no_choice[1], 13, red)
 
-            self.main_screen.blit(choice0, (23*self.width//40, 77*self.height//100))
+            self.main_screen.blit(choice0, (self.height + 10, 77*self.height//100))
             self.main_screen.blit(choice1, (27*self.width//40, 77*self.height//100))
             pygame.display.update()
 
@@ -372,8 +373,8 @@ class Game:
         if text != None:
             self.clear_bottom_panel()
             instruction_text = text_format(text, 13, black)
-            self.main_screen.blit(instruction_text, (23*self.width//40, 75*self.height/100))
-        response_text = input.Text_input_box(200,40,23*self.width//40, 89*self.height/100, screen=self.main_screen)
+            self.main_screen.blit(instruction_text, (self.height + 10, 75*self.height/100))
+        response_text = input.Text_input_box(200,40,self.height + 10, 89*self.height/100, screen=self.main_screen)
         response = ""
         while response == "":
             response = response_text.show_box()
@@ -383,19 +384,19 @@ class Game:
         self.clear_bottom_panel()
 
         choice_text = text_format("Select the action you want to make :", 13, black)
-        self.main_screen.blit(choice_text, (23*self.width//40, 75*self.height//100))
+        self.main_screen.blit(choice_text, (self.height + 10, 75*self.height//100))
         choice_text = text_format("1 - Display information about one of your properties (Does not work for train stations or companies)", 13, black)
-        self.main_screen.blit(choice_text, (23*self.width//40, 77*self.height//100))
+        self.main_screen.blit(choice_text, (self.height + 10, 77*self.height//100))
         choice_text = text_format("2 - Build a house", 13, black)
-        self.main_screen.blit(choice_text, (23*self.width//40, 79*self.height//100))
+        self.main_screen.blit(choice_text, (self.height + 10, 79*self.height//100))
         choice_text = text_format("3 - Sell a house", 13, black)
-        self.main_screen.blit(choice_text, (23*self.width//40, 81*self.height//100))
+        self.main_screen.blit(choice_text, (self.height + 10, 81*self.height//100))
         choice_text = text_format("4 - Display information about the properties of another player", 13, black)
-        self.main_screen.blit(choice_text, (23*self.width//40, 83*self.height//100))
+        self.main_screen.blit(choice_text, (self.height + 10, 83*self.height//100))
         choice_text = text_format("5 - Make an offer to another player", 13, black)
-        self.main_screen.blit(choice_text, (23*self.width//40, 85*self.height//100))
+        self.main_screen.blit(choice_text, (self.height + 10, 85*self.height//100))
         choice_text = text_format("6 - End your turn", 13, black)
-        self.main_screen.blit(choice_text, (23*self.width//40, 87*self.height//100))
+        self.main_screen.blit(choice_text, (self.height + 10, 87*self.height//100))
         
         pygame.display.update()
         answer = self.enter_response(None)
@@ -410,6 +411,7 @@ class Game:
             board_background_image = board_background_image.resize((self.width, self.height))
             board_background_image.save('pictures/board_resized.png')
             board_background = pygame.image.load('pictures/board_resized.png')
+            self.resize_factor = (self.width/board_background_image.size[0], self.height/board_background_image.size[1])
         else:   
             board_background = pygame.image.load('pictures/board.png')
 
@@ -417,7 +419,7 @@ class Game:
         self.main_screen.blit(board_background,(0,0))
         self.game_board.cases()[player.position()].show_case(self.height/2 - 150, self.height/2 - 170, self.main_screen)
         for i in range(1, self.nb_player + 1):
-            self.players[i].show_player(self.main_screen, self.height)
+            self.players[i].show_player(self.main_screen, self.height, self.resize_factor)
         pygame.display.update()
 
         self.print_player_info(player, True)
@@ -439,14 +441,14 @@ class Game:
             else:
                 answer = self.print_instruction("You are imprisonned. Do you want to roll the dices to try to exit the prison this round ?", None, ["yes","no"])
                 if answer == "no":
-                    b = self.game_board.cases()[player.position()].rounds_passed(player)
+                    b = self.game_board.cases()[player.position()].rounds_passed(player, self.print_instruction)
                 elif answer == "yes":
                     self.print_instruction("Press Enter to roll the dices", None, None)
                     dice_1 = random.randint(1, 6)
                     dice_2 = random.randint(1, 6)
                     self.print_instruction(" You've got " + str(dice_1) + " and " + str(dice_2), None, None)
 
-                    b = self.game_board.cases()[player.position()].trying_to_escape_prison(dice_1, dice_2, player)
+                    b = self.game_board.cases()[player.position()].trying_to_escape_prison(dice_1, dice_2, player, self.print_instruction)
 
         ## Cas possibilité d'avancer ##
         if b:
@@ -471,7 +473,7 @@ class Game:
             self.game_board.cases()[player.position()].show_case(self.height/2 - 150, self.height/2 - 170, self.main_screen)
             self.print_player_info(player, True)
             for i in range(1, self.nb_player +1):
-                self.players[i].show_player(self.main_screen, self.height)
+                self.players[i].show_player(self.main_screen, self.height, self.resize_factor)
             pygame.display.update()
 
             ## Cas départ ##
@@ -494,7 +496,7 @@ class Game:
             ## Cas Chance ##
             elif (self.game_board.cases()[player.position()].type() == "Luck"):
                 self.print_instruction("You're now on a Chance square !", None, None)
-                self.game_board.cases()[player.position()].action(player)
+                self.game_board.cases()[player.position()].action(player, self.print_instruction)
 
             ## Cas Taxes ##
             elif (self.game_board.cases()[player.position()].type() == "Taxes"):
@@ -572,6 +574,14 @@ class Game:
 
         if(len(property_player) > 0):
             ## Actions joueur ##
+            self.main_screen.fill(pygame.Color("white"))
+            self.main_screen.blit(board_background,(0,0))
+            self.game_board.cases()[player.position()].show_case(self.height/2 - 150, self.height/2 - 170, self.main_screen)
+            for i in range(1, self.nb_player + 1):
+                self.players[i].show_player(self.main_screen, self.height, self.resize_factor)
+            pygame.display.update()
+
+            self.print_player_info(player, True)
             answer = int(self.player_choice_menu())
             while answer != 6:
                 ## Affichage informations ##
@@ -643,6 +653,7 @@ class Game:
                         if (len(seller_properties) == 0):
                             self.print_instruction("The player you chose does not have any property", None, None)
                         else:
+                            self.clear_right_panel()
                             self.print_player_info(self.players[id_player], False)
                             answer2 = ""
                             while (answer2 != "no"):
@@ -663,14 +674,17 @@ class Game:
                         if len(seller_properties) == 0:
                             self.print_instruction("This player you chose does not have any property", None, None)
                         else:
+                            self.clear_right_panel()
                             self.print_player_info(self.players[id_seller], False)
                             id_seller_property = int(self.enter_response("Which property belonging to the other player do you want ? Enter the id diplayed in their recap above :"))
                             if id_seller_property < 1 or id_seller_property > len(seller_properties):
                                 self.print_instruction("The number you entered is invalid", None, None)
-                            elif self.game_board.houses_on_monopole(seller_properties[id_seller_property - 1].id()) > 0:
+                            elif self.game_board.cases()[seller_properties[id_seller_property - 1].id()].type() == "Property" and self.game_board.houses_on_monopole(seller_properties[id_seller_property - 1].id()) > 0:
                                 self.print_instruction("You can't buy a house in a monopole where some houses are built", None, None)
                             else:
                                 id_buyer_property = int(self.enter_response("Which property do you offer ? Enter the id diplayed in your recap above :"))
+                                self.clear_right_panel()
+                                self.print_player_info(player, True)
                                 if id_buyer_property < 1 or id_buyer_property > len(property_player):
                                     self.print_instruction("The number you entered is invalid", None, None)
                                 elif (self.game_board.houses_on_monopole(property_player[id_seller_property - 1].id()) > 0):
