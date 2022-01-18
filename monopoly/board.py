@@ -148,6 +148,8 @@ class Board:
             size +=1
         taille_case = size //11
 
+        pygame.draw.rect(screen, white, pygame.Rect(x_init, y_init, size, size))
+
         # A small condition for the smallest board
         if size <= 900:
             mini = True
