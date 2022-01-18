@@ -3,7 +3,7 @@ from monopoly import text_input as input
 from monopoly.text_input import text_format
 from time import sleep
 from pygame.locals import *
-from Monopoly_graph_old import read_properties, Board, Game_graph
+from Files_that_should_be_deleted.Monopoly_graph_old import read_properties, Board, Game_graph
 import random
 import time
 from monopoly.color import *

@@ -29,7 +29,7 @@ class Board:
         else:
             # Plus complexe parce qu'il faut différencier toutes les cases
             # Mettre le bon nom de fichier puis ne plus y toucher
-            properties = read_properties("../config/properties.txt")
+            properties = read_properties("../monopoly/config/properties.txt")
             self._cases = [Case("Start",0)]
             c=0
             for i in range(1,40):

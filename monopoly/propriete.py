@@ -9,6 +9,7 @@ Comments : fully functional (18/01/2022)
 import random
 import pygame
 import pygame.locals as pl
+import importlib.resources
 
 # Local source
 from monopoly.player import Player
@@ -104,7 +105,7 @@ class Property(Case):
         pygame.draw.rect(screen, self.color, pygame.Rect(x_init + 10, y_init + 10, 280, 70))
 
         if self.nb_houses() >= 1 and self.nb_houses() != 5:
-            maison = pygame.image.load('pictures/MAISON.png')
+            maison = pygame.image.load(importlib.resources.path('monopoly.pictures','board.png').args[0].path[:-11]+'MAISON.png')
             maison_width, maison_height = maison.get_size()
             screen.blit(maison,
                         (x_init + 30 - maison_width / 2, y_init + 145 - maison_height / 2))
@@ -118,28 +119,28 @@ class Property(Case):
                         screen.blit(maison,
                                     (x_init + 30 - maison_width / 2, y_init + 265 - maison_height / 2))
         if self.nb_houses() == 5:
-            hotel = pygame.image.load('pictures/HOTEL.png')
+            hotel = pygame.image.load(importlib.resources.path('monopoly.pictures','board.png').args[0].path[:-11]+'HOTEL.png')
             hotel_width, hotel_height = hotel.get_size()
             screen.blit(hotel,
                         (x_init + 30 - hotel_width / 2, y_init + 145 - hotel_height / 2))
 
         if self.owner() == 1:
-            pion1 = pygame.image.load('pictures/PION1.png')
+            pion1 = pygame.image.load(importlib.resources.path('monopoly.pictures','board.png').args[0].path[:-11]+'PION1.png')
             pion1_width, pion1_height = pion1.get_size()
             screen.blit(pion1,
                                   (x_init + 150- pion1_width / 2, y_init + 45 - pion1_height / 2))
         if self.owner() == 2:
-            pion2 = pygame.image.load('pictures/PION2.png')
+            pion2 = pygame.image.load(importlib.resources.path('monopoly.pictures','board.png').args[0].path[:-11]+'PION2.png')
             pion2_width, pion2_height = pion2.get_size()
             screen.blit(pion2,
                                   (x_init + 150- pion2_width / 2, y_init + 45 - pion2_height / 2))
         if self.owner() == 3:
-            pion3 = pygame.image.load('pictures/PION3.png')
+            pion3 = pygame.image.load(importlib.resources.path('monopoly.pictures','board.png').args[0].path[:-11]+'PION3.png')
             pion3_width, pion3_height = pion3.get_size()
             screen.blit(pion3,
                                   (x_init + 150- pion3_width / 2, y_init + 45 - pion3_height / 2))
         if self.owner() == 4:
-            pion4 = pygame.image.load('pictures/PION4.png')
+            pion4 = pygame.image.load(importlib.resources.path('monopoly.pictures','board.png').args[0].path[:-11]+'PION4.png')
             pion4_width, pion4_height = pion4.get_size()
             screen.blit(pion4,
                                   (x_init + 150- pion4_width / 2, y_init + 45 - pion4_height / 2))
@@ -216,7 +217,7 @@ class Luck(Case):
     def show_case(self, x_init, y_init,screen):
         pygame.draw.rect(screen, white, pygame.Rect(x_init, y_init, 300, 340))
         pygame.draw.rect(screen, black, pygame.Rect(x_init + 5, y_init + 5 , 290, 330), 4)
-        logo_picture = pygame.image.load('pictures/CHANCE.png')
+        logo_picture = pygame.image.load(importlib.resources.path('monopoly.pictures','board.png').args[0].path[:-11]+'CHANCE.png')
         width_picture, height_picture = logo_picture.get_size()
         screen.blit(logo_picture, (x_init + 150 - width_picture / 2, y_init + 170 - height_picture / 2))
         name_prop = text_format("Chance", 25, black)
@@ -235,7 +236,7 @@ class GoToPrison(Case):
     def show_case(self, x_init, y_init,screen):
         pygame.draw.rect(screen, white, pygame.Rect(x_init, y_init, 300, 340))
         pygame.draw.rect(screen, black, pygame.Rect(x_init + 5, y_init + 5 , 290, 330), 4)
-        logo_picture = pygame.image.load('pictures/ALLER_EN_PRISON.png')
+        logo_picture = pygame.image.load(importlib.resources.path('monopoly.pictures','board.png').args[0].path[:-11]+'ALLER_EN_PRISON.png')
         width_picture, height_picture = logo_picture.get_size()
         screen.blit(logo_picture, (x_init + 150 - width_picture / 2, y_init + 170 - height_picture / 2))
         name_prop = text_format("Allez en Prison", 25, black)
@@ -272,7 +273,7 @@ class Prison(Case):
     def show_case(self, x_init, y_init,screen):
         pygame.draw.rect(screen, white, pygame.Rect(x_init, y_init, 300, 340))
         pygame.draw.rect(screen, black, pygame.Rect(x_init + 5, y_init + 5 , 290, 330), 4)
-        logo_picture = pygame.image.load('pictures/PRISON.png')
+        logo_picture = pygame.image.load(importlib.resources.path('monopoly.pictures','board.png').args[0].path[:-11]+'PRISON.png')
         width_picture, height_picture = logo_picture.get_size()
         screen.blit(logo_picture, (x_init + 150 - width_picture / 2, y_init + 170 - height_picture / 2))
         name_prop = text_format("Simple Visite", 25, black)
@@ -294,7 +295,7 @@ class Taxes(Case):
     def show_case(self, x_init, y_init,screen):
         pygame.draw.rect(screen, white, pygame.Rect(x_init, y_init, 300, 340))
         pygame.draw.rect(screen, black, pygame.Rect(x_init + 5, y_init + 5 , 290, 330), 4)
-        logo_picture = pygame.image.load('pictures/TAXE.png')
+        logo_picture = pygame.image.load(importlib.resources.path('monopoly.pictures','board.png').args[0].path[:-11]+'TAXE.png')
         width_picture, height_picture = logo_picture.get_size()
         screen.blit(logo_picture, (x_init + 150 - width_picture / 2, y_init + 170 - height_picture / 2))
         name_prop = text_format("Taxe de Luxe", 25, black)
@@ -327,26 +328,26 @@ class Company(Case):
     def show_case(self, x_init, y_init,screen):
         pygame.draw.rect(screen, white, pygame.Rect(x_init, y_init, 300, 340))
         pygame.draw.rect(screen, black, pygame.Rect(x_init + 5, y_init + 5 , 290, 330), 4)
-        logo_picture = pygame.image.load('pictures/EAU_ELEC.png')
+        logo_picture = pygame.image.load(importlib.resources.path('monopoly.pictures','board.png').args[0].path[:-11]+'EAU_ELEC.png')
         width_picture, height_picture = logo_picture.get_size()
         screen.blit(logo_picture, (x_init + 150 - width_picture / 2, y_init + 170 - height_picture / 2))
         if self.owner() == 1:
-            pion1 = pygame.image.load('pictures/PION1.png')
+            pion1 = pygame.image.load(importlib.resources.path('monopoly.pictures','board.png').args[0].path[:-11]+'PION1.png')
             pion1_width, pion1_height = pion1.get_size()
             screen.blit(pion1,
                         (x_init + 250 - pion1_width / 2, y_init + 90 - pion1_height / 2))
         if self.owner() == 2:
-            pion2 = pygame.image.load('pictures/PION2.png')
+            pion2 = pygame.image.load(importlib.resources.path('monopoly.pictures','board.png').args[0].path[:-11]+'PION2.png')
             pion2_width, pion2_height = pion2.get_size()
             screen.blit(pion2,
                         (x_init + 250 - pion2_width / 2, y_init + 90 - pion2_height / 2))
         if self.owner() == 3:
-            pion3 = pygame.image.load('pictures/PION3.png')
+            pion3 = pygame.image.load(importlib.resources.path('monopoly.pictures','board.png').args[0].path[:-11]+'PION3.png')
             pion3_width, pion3_height = pion3.get_size()
             screen.blit(pion3,
                         (x_init + 250 - pion3_width / 2, y_init + 90 - pion3_height / 2))
         if self.owner() == 4:
-            pion4 = pygame.image.load('pictures/PION4.png')
+            pion4 = pygame.image.load(importlib.resources.path('monopoly.pictures','board.png').args[0].path[:-11]+'PION4.png')
             pion4_width, pion4_height = pion4.get_size()
             screen.blit(pion4,
                         (x_init + 250 - pion4_width / 2, y_init + 90 - pion4_height / 2))
@@ -385,26 +386,26 @@ class TrainStation(Case):
     def show_case(self, x_init, y_init,screen):
         pygame.draw.rect(screen, white, pygame.Rect(x_init, y_init, 300, 340))
         pygame.draw.rect(screen, black, pygame.Rect(x_init + 5, y_init + 5 , 290, 330), 4)
-        logo_picture = pygame.image.load('pictures/GARE.png')
+        logo_picture = pygame.image.load(importlib.resources.path('monopoly.pictures','board.png').args[0].path[:-11]+'GARE.png')
         width_picture, height_picture = logo_picture.get_size()
         screen.blit(logo_picture, (x_init + 150 - width_picture / 2, y_init + 115 - height_picture / 2))
         if self.owner() == 1:
-            pion1 = pygame.image.load('pictures/PION1.png')
+            pion1 = pygame.image.load(importlib.resources.path('monopoly.pictures','board.png').args[0].path[:-11]+'PION1.png')
             pion1_width, pion1_height = pion1.get_size()
             screen.blit(pion1,
                                   (x_init + 250- pion1_width / 2, y_init + 90 - pion1_height / 2))
         if self.owner() == 2:
-            pion2 = pygame.image.load('pictures/PION2.png')
+            pion2 = pygame.image.load(importlib.resources.path('monopoly.pictures','board.png').args[0].path[:-11]+'PION2.png')
             pion2_width, pion2_height = pion2.get_size()
             screen.blit(pion2,
                                   (x_init + 250- pion2_width / 2, y_init + 90 - pion2_height / 2))
         if self.owner() == 3:
-            pion3 = pygame.image.load('pictures/PION3.png')
+            pion3 = pygame.image.load(importlib.resources.path('monopoly.pictures','board.png').args[0].path[:-11]+'PION3.png')
             pion3_width, pion3_height = pion3.get_size()
             screen.blit(pion3,
                                   (x_init + 250- pion3_width / 2, y_init + 90 - pion3_height / 2))
         if self.owner() == 4:
-            pion4 = pygame.image.load('pictures/PION4.png')
+            pion4 = pygame.image.load(importlib.resources.path('monopoly.pictures','board.png').args[0].path[:-11]+'PION4.png')
             pion4_width, pion4_height = pion4.get_size()
             screen.blit(pion4,
                                   (x_init + 250- pion4_width / 2, y_init + 90 - pion4_height / 2))
