@@ -10,6 +10,7 @@ import random
 import pygame
 from pygame.locals import *
 from time import sleep
+import importlib.resources
 
 # local source
 from monopoly.player import Player
