@@ -12,7 +12,7 @@ Our project was to build a fully functional and good-looking game of Monopoly.
   - Minipoly.py, a smaller version of the game 
   - Monopoly.py, the classic one (in French !!)
 
-####Feel free to test everything !!!
+Feel free to test everything !!!
 #
 TDLOG course, ENPC, Year 2021/2022
 
