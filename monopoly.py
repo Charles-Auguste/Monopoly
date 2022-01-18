@@ -1,5 +1,5 @@
 """
-minipoly.py
+monopoly.py
 Author : TDLOG group A
 Date : 24/01/2022
 Comments :
@@ -19,6 +19,7 @@ from monopoly.board import Board
 from monopoly import text_input as input
 from monopoly.text_input import text_format
 from monopoly.color import *
+from monopoly.utility_functions import obt_path
 
 pygame.init()
 
@@ -43,7 +44,7 @@ class Game():
         play: bool = True
         selected = "start"
         game_on = True
-        title_screen = pygame.image.load('monopoly/pictures/title_screen.jpg')
+        title_screen = pygame.image.load(obt_path('monopoly.pictures','title_screen.jpg'))
         title_screen = title_screen.convert()
         picture_width, picture_height = title_screen.get_size()
         while play:
@@ -94,7 +95,7 @@ class Game():
         play: bool = True
         selection_cursor = 0
         nb_players = -1
-        title_screen = pygame.image.load('monopoly/pictures/title_screen.jpg')
+        title_screen = pygame.image.load(obt_path('monopoly.pictures','title_screen.jpg'))
         title_screen = title_screen.convert()
         picture_width, picture_height = title_screen.get_size()
         while play:
@@ -150,7 +151,7 @@ class Game():
         :param nb_player: the number of player
         :return: -1 if exit, 0 if everything is ok
         """
-        title_screen = pygame.image.load('monopoly/pictures/title_screen.jpg')
+        title_screen = pygame.image.load(obt_path('monopoly.pictures','title_screen.jpg'))
         title_screen = title_screen.convert()
         picture_width, picture_height = title_screen.get_size()
         name_1 = ""

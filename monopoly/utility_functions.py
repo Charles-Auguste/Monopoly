@@ -7,6 +7,7 @@ Comments : fully functional (18/01/2022)
 
 # Standard library
 import pygame
+import importlib.resources
 
 # 3rd party packages
 import pygame_textinput
@@ -188,3 +189,9 @@ def grande_bijection(i: int, x_init : int, y_init : int, size : int):
 
     else:
         return [0, 0]
+
+
+def obt_path(module,template):
+    with importlib.resources.path(module,template) as p:
+        path = p
+    return path
