@@ -310,15 +310,15 @@ class Game():
     def print_player_info(self, player, main_player):
         if main_player:
             self.main_screen.blit(text_format("It's " + player.name() + "'s turn!", 30, orange),
-                                  (self.size_board + 60, self.height // 20))
+                                  (self.size_board + 60, 10 * self.height // 100))
             self.main_screen.blit(
                 text_format("Bank account : " + str(player.money()) + " k€", 18, black),
-                (self.size_board + 60, self.height // 10))
+                (self.size_board + 60, 20 * self.height // 100))
 
         property_player = self.game_board.list_property(player)
         if len(property_player) > 0:
             self.main_screen.blit(text_format("Properties :", 18, black),
-                                  (self.size_board + 60, self.height // 10 + 12))
+                                  (self.size_board + 60, 20 * self.height // 100 + 20))
 
         for i in range(1, len(property_player) + 1):
             if (property_player[i - 1].type() == "Property"):
@@ -327,25 +327,25 @@ class Game():
                     self.main_screen.blit(text_format(
                         " " + str(i) + " - " + property_player[i - 1].name() + " - Number of houses : " + str(
                             nb_houses), 13, black), (self.size_board + 60,
-                                                     self.height // 10 + (i + 1) * 15))
+                                                     20 * self.height // 100 + 15 + (i + 1) * 15))
                 else:
                     self.main_screen.blit(
                         text_format(" " + str(i) + " - " + property_player[i - 1].name() + " - Number of hotels : 1",
                                     13, black),
-                        (self.size_board + 60, self.height // 10 + (i + 1) * 12))
+                        (self.size_board + 60, 20 * self.height // 100 + 15+ (i + 1) * 15))
             else:
                 self.main_screen.blit(text_format(" " + str(i) + " - " + property_player[i - 1].name(), 13, black), (
-                self.size_board + 60, self.height // 10 + (i + 1) * 12))
+                self.size_board + 60, 20 * self.height // 100 + 15 + (i + 1) * 15))
 
         pygame.display.update()
 
     def clear_bottom_panel(self):
-        clear_rectangle = pygame.Rect(self.size_board + 60, 75 * self.height // 100, self.width - 770,
+        clear_rectangle = pygame.Rect(self.size_board + 60, 75 * self.height // 100, self.width,
                                       25 * self.height // 100)
         pygame.draw.rect(self.main_screen, pygame.Color("white"), clear_rectangle)
 
     def clear_right_panel(self):
-        clear_rectangle = pygame.Rect(self.size_board + 60, 0, self.width - 770, 75 * self.height // 100)
+        clear_rectangle = pygame.Rect(self.size_board + 60, 0, self.width, 75 * self.height // 100)
         pygame.draw.rect(self.main_screen, pygame.Color("white"), clear_rectangle)
 
     def print_instruction(self, instruction_1, instruction_2,instruction_3,instruction_4, yes_no_choice):
@@ -417,6 +417,13 @@ class Game():
             self.wait_for_player()
         return response
 
+    def refresh_player_info(self,player):
+        self.clear_right_panel()
+        pygame.draw.rect(self.main_screen, black, pygame.Rect(self.size_board + 40, 20, 5, self.height - 40))
+        pygame.draw.rect(self.main_screen, black,
+                         pygame.Rect(self.size_board + 40, 70 * self.height // 100, self.width, 5))
+        self.print_player_info(player, True)
+
     def wait_for_player(self):
         """méthode qui attend que le joueur appuie sur entrer pour continuer, rend False s'il quitte le jeu, True sinon"""
         while True:
@@ -431,37 +438,42 @@ class Game():
                         self.playing_status = False
                         return False
 
-    def enter_response(self, text):
+    def enter_response(self, text, condition = None):
         if text != None:
             self.clear_bottom_panel()
             instruction_text = text_format(text, 13, black)
             self.main_screen.blit(instruction_text, (self.size_board + 60, 75 * self.height / 100))
-        response_text = input.Text_input_box(200, 40, 770, 89 * self.height / 100,
-                                             screen=self.main_screen)
+        if condition != None:
+            response_text = input.Text_input_box(x_init= self.size_board + 100, y_init=89 * self.height / 100,
+                                             screen=self.main_screen, validate=condition )
+        else :
+            response_text = input.Text_input_box(x_init=self.size_board + 100, y_init=89 * self.height / 100,
+                                                 screen=self.main_screen)
         response = ""
         while response == "":
+            pygame.draw.rect(self.main_screen, black, pygame.Rect(self.size_board + 100,89 * self.height / 100,40,20),1)
             response = response_text.show_box()
         return response
 
     def player_choice_menu(self):
         self.clear_bottom_panel()
 
-        choice_text = text_format("Select the action you want to make :", 13, black)
-        self.main_screen.blit(choice_text, (770, 75 * self.height // 100))
+        choice_text = text_format("Select the action you want to make :", 13, orange)
+        self.main_screen.blit(choice_text, (self.size_board + 60, 75 * self.height // 100))
         choice_text = text_format(
-            "1 - Display information about one of your properties (Does not work for train stations or companies)", 13,
+            "1 - Display information about one of your properties", 13,
             black)
-        self.main_screen.blit(choice_text, (770, 77 * self.height // 100))
+        self.main_screen.blit(choice_text, (self.size_board + 60, 77 * self.height // 100))
         choice_text = text_format("2 - Build a house", 13, black)
-        self.main_screen.blit(choice_text, (770, 79 * self.height // 100))
+        self.main_screen.blit(choice_text, (self.size_board + 60, 79 * self.height // 100))
         choice_text = text_format("3 - Sell a house", 13, black)
-        self.main_screen.blit(choice_text, (770, 81 * self.height // 100))
+        self.main_screen.blit(choice_text, (self.size_board + 60, 81 * self.height // 100))
         choice_text = text_format("4 - Display information about the properties of another player", 13, black)
-        self.main_screen.blit(choice_text, (770, 83 * self.height // 100))
+        self.main_screen.blit(choice_text, (self.size_board + 60, 83 * self.height // 100))
         choice_text = text_format("5 - Make an offer to another player", 13, black)
-        self.main_screen.blit(choice_text, (770, 85 * self.height // 100))
+        self.main_screen.blit(choice_text, (self.size_board + 60, 85 * self.height // 100))
         choice_text = text_format("6 - End your turn", 13, black)
-        self.main_screen.blit(choice_text, (770, 87 * self.height // 100))
+        self.main_screen.blit(choice_text, (self.size_board + 60, 87 * self.height // 100))
 
         pygame.display.update()
         answer = self.enter_response(None)
@@ -474,7 +486,7 @@ class Game():
         pygame.draw.rect(self.main_screen, black, pygame.Rect(self.size_board + 40, 70 * self.height // 100, self.width, 5))
 
 
-        self.print_player_info(player, True)
+        self.refresh_player_info(player)
         self.print_instruction("Time for " + player.name() + " to play !", None,None,None, None)
 
         # Chargement des propriétés que possède le joueur qui joue son tour
@@ -631,6 +643,8 @@ class Game():
                 if (player.money() < 0):
                     self.print_instruction("You just lost the game!", None, None, None, None)
 
+                self.refresh_player_info(player)
+
                 if (len(property_player) > 0):
                     ## Actions joueur ##
                     answer = int(self.player_choice_menu())
@@ -644,7 +658,7 @@ class Game():
                                 id_property - 1].type() != "Property"):
                                 self.print_instruction("The number you have entered is invalid",None, None, None, None)
                             else:
-                                property_player[id_property - 1].show_case(self.height / 2 - 150, self.height / 2 - 170,
+                                property_player[id_property - 1].show_case(10 + self.size_board // 2 - 150, self.height / 2 - 170,
                                                                            self.main_screen)
 
                         ## Construction maison ##
@@ -821,7 +835,9 @@ class Game():
                         if answer != 6:
                             answer = int(self.player_choice_menu())
 
-                self.print_instruction("This is the end of your turn", None, None, None, None)
+                self.refresh_player_info(player)
+                self.print_instruction("This is the end of your turn", "Here is a brief recap of your situation", " ", "Press enter to continue", None)
+
 
 
     # END OF THE GAME

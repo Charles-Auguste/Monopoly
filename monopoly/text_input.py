@@ -37,7 +37,7 @@ def print_text(screen,nb_ligne, text, textSize, textColor):
 class Text_input_box:
     def __init__(self,width = 200, height = 40, x_init = 10, y_init = 10, screen = None, visible_after : bool = True, validate = lambda input: len(input) <= 17):
         self.manager = pygame_textinput.TextInputManager(validator=validate)
-        self.font = pygame.font.SysFont("Consolas", 20)
+        self.font = pygame.font.SysFont("Consolas", 15)
         self.textinput = pygame_textinput.TextInputVisualizer(manager=self.manager, font_object=self.font)
         self.width = width
         self.height = height
