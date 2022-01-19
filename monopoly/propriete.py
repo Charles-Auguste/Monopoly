@@ -189,34 +189,34 @@ class Luck(Case):
     def action(self, player, print_instruction):
         n = random.randint(1,8)
         if (n==1):
-            print_instruction(" Allez en prison. Allez tout droit à la prison. Ne passez pas par la case départ, ne reçevez pas 200€.", None, None)
+            print_instruction(" Allez en prison. Allez tout droit à la prison. Ne passez pas par la case départ, ne reçevez pas 200€.", None, None, None, None)
             player.set_free(False)
             player.set_position(10)
         if (n==2):
-            print_instruction(" Rendez-vous Rue de La Paix. Si vous passez par la case départ, recevez 200€.", None, None)
+            print_instruction(" Rendez-vous Rue de La Paix. Si vous passez par la case départ, recevez 200€.", None, None, None, None)
             if (player.position()>39):
                 player.set_money(player.money()+200)
             player.set_position(39)
         if (n==3):
-            print_instruction(" Rendez-vous Avenue Henri Martin. Si vous passez par la case départ, recevez 200€.", None, None)
+            print_instruction(" Rendez-vous Avenue Henri Martin. Si vous passez par la case départ, recevez 200€.", None, None, None, None)
             if(player.position()>24):
                 player.set_money(player.money()+200)
             player.set_position(24)
         if (n==4):
-            print_instruction(" Rendez-vous case Départ. Recevez 400€.", None, None)
+            print_instruction(" Rendez-vous case Départ. Recevez 400€.", None, None, None, None)
             player.set_position(0)
             player.set_money(player.money()+400)
         if (n == 5):
-            print_instruction(" La banque vous verse un dividende de 50€.", None, None)
+            print_instruction(" La banque vous verse un dividende de 50€.", None, None, None, None)
             player.set_money(player.money()+50)
         if (n == 6):
-            print_instruction(" Vous êtes libéré de prison. Cette carte peut être conservée jusqu'à ce qu'elle soit utilisée ou vendue.", None, None)
+            print_instruction(" Vous êtes libéré de prison. Cette carte peut être conservée jusqu'à ce qu'elle soit utilisée ou vendue.", None, None, None, None)
             player.set_escape_card(player.escape_card()+1)
         if (n == 7):
-            print_instruction(" Amende pour excès de vitesse. Payez 50€.", None, None)
+            print_instruction(" Amende pour excès de vitesse. Payez 50€.", None, None, None, None)
             player.set_money(player.money()-50)
         if (n == 8):
-            print_instruction(" Amende pour ivresse. Payez 50€.", None, None)
+            print_instruction(" Amende pour ivresse. Payez 50€.", None, None, None, None)
             player.set_money(player.money()-50)
 
     def show_case(self, x_init, y_init,screen):
@@ -261,16 +261,16 @@ class Prison(Case):
 
     def rounds_passed(self, player, print_instruction):
         if (player.round_in_prison()==3):
-            print_instruction(" You can exit the prison !", None, None)
+            print_instruction(" You can exit the prison !", None, None, None, None)
             return self.exit_prison(player)
         else :
-            print_instruction(" You can't exit the prison...", None, None)
+            print_instruction(" You can't exit the prison...", None, None, None, None)
             player.set_round_in_prison(player.round_in_prison()+1)
             return False
 
     def trying_to_escape_prison(self, dice_1, dice_2, player, print_instruction):
         if (dice_1==dice_2):
-            print_instruction(" You can exit the prison ! But you have to pay 50€.", None, None)
+            print_instruction(" You can exit the prison ! But you have to pay 50€.", None, None, None, None)
             return self.exit_prison(player)
         else:
             return self.rounds_passed(player, print_instruction)

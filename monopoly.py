@@ -540,7 +540,7 @@ class Game():
             ## Cas Chance ##
             elif (self.game_board.cases()[player.position()].type() == "Luck"):
                 self.print_instruction("You're now on a Chance square !", None, None,None, None)
-                self.game_board.cases()[player.position()].action(player)
+                self.game_board.cases()[player.position()].action(player, self.print_instruction)
 
             ## Cas Taxes ##
             elif (self.game_board.cases()[player.position()].type() == "Taxes"):
