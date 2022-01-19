@@ -254,6 +254,9 @@ class Game():
             self.end_pygame()
             return ([-1])
 
+    def menu_quit(self):
+        pass
+
     def create_game(self, game_var):
         self.main_screen.fill(pygame.Color("white"))
         pygame.display.update()
@@ -309,16 +312,36 @@ class Game():
 
     def print_player_info(self, player, main_player):
         if main_player:
-            self.main_screen.blit(text_format("It's " + player.name() + "'s turn!", 30, orange),
-                                  (self.size_board + 60, 10 * self.height // 100))
+            if(player.id() == 1):
+                pion1 = pygame.image.load(obt_path('monopoly.pictures', 'PION1.png'))
+                picture_width, picture_height = pion1.get_size()
+                self.main_screen.blit(pion1,
+                                      (self.width  - 2 *picture_width , 5 * self.height // 100 - picture_height / 2))
+            if (player.id() == 2):
+                pion2 = pygame.image.load(obt_path('monopoly.pictures', 'PION2.png'))
+                picture_width, picture_height = pion2.get_size()
+                self.main_screen.blit(pion2,
+                                      (self.width - 2 * picture_width, 5 * self.height // 100 - picture_height / 2))
+            if (player.id() == 3):
+                pion3 = pygame.image.load(obt_path('monopoly.pictures', 'PION3.png'))
+                picture_width, picture_height = pion3.get_size()
+                self.main_screen.blit(pion3,
+                                      (self.width - 2 * picture_width, 5 * self.height // 100 - picture_height / 2))
+            if (player.id() == 4):
+                pion4 = pygame.image.load(obt_path('monopoly.pictures', 'PION4.png'))
+                picture_width, picture_height = pion4.get_size()
+                self.main_screen.blit(pion4,
+                                      (self.width - 2 * picture_width, 5 * self.height // 100 - picture_height / 2))
+            self.main_screen.blit(text_format("It's " + player.name() + "'s turn!", 30, red),
+                                  (self.size_board + 60, 5 * self.height // 100))
             self.main_screen.blit(
                 text_format("Bank account : " + str(player.money()) + " k€", 18, black),
-                (self.size_board + 60, 20 * self.height // 100))
+                (self.size_board + 60, 10 * self.height // 100))
 
         property_player = self.game_board.list_property(player)
         if len(property_player) > 0:
             self.main_screen.blit(text_format("Properties :", 18, black),
-                                  (self.size_board + 60, 20 * self.height // 100 + 20))
+                                  (self.size_board + 60, 10 * self.height // 100 + 20))
 
         for i in range(1, len(property_player) + 1):
             if (property_player[i - 1].type() == "Property"):
@@ -327,15 +350,15 @@ class Game():
                     self.main_screen.blit(text_format(
                         " " + str(i) + " - " + property_player[i - 1].name() + " - Number of houses : " + str(
                             nb_houses), 13, black), (self.size_board + 60,
-                                                     20 * self.height // 100 + 15 + (i + 1) * 15))
+                                                     10 * self.height // 100 + 15 + (i + 1) * 15))
                 else:
                     self.main_screen.blit(
                         text_format(" " + str(i) + " - " + property_player[i - 1].name() + " - Number of hotels : 1",
                                     13, black),
-                        (self.size_board + 60, 20 * self.height // 100 + 15+ (i + 1) * 15))
+                        (self.size_board + 60, 10 * self.height // 100 + 15+ (i + 1) * 15))
             else:
                 self.main_screen.blit(text_format(" " + str(i) + " - " + property_player[i - 1].name(), 13, black), (
-                self.size_board + 60, 20 * self.height // 100 + 15 + (i + 1) * 15))
+                self.size_board + 60, 10 * self.height // 100 + 15 + (i + 1) * 15))
 
         pygame.display.update()
 
@@ -588,7 +611,7 @@ class Game():
                             if (self.game_board.is_owned(i) == id_of_owner):
                                 nb_train_stations_owned += 1
                         self.print_instruction(welcome_text, "It costs " + str(
-                            self.game_board.cases()[player.position()].rent(nb_train_stations_owned)) + "k€", None)
+                            self.game_board.cases()[player.position()].rent(nb_train_stations_owned)) + "k€", None, None, None)
                         self.game_board.transaction(player, self.players[id_of_owner],
                                                     self.game_board.cases()[player.position()].rent(
                                                         nb_train_stations_owned))
@@ -654,8 +677,10 @@ class Game():
                             self.display_properties(property_player)
                             id_property = int(
                                 self.enter_response("On which property would you like to have information ?"))
-                            if (id_property < 1 or id_property > len(property_player) or property_player[
-                                id_property - 1].type() != "Property"):
+                            if (id_property < 1 or id_property > len(property_player) or (property_player[
+                                id_property - 1].type() != "Property" or property_player[
+                                id_property - 1].type() != "Company" or property_player[
+                                id_property - 1].type() != "TrainStation")):
                                 self.print_instruction("The number you have entered is invalid",None, None, None, None)
                             else:
                                 property_player[id_property - 1].show_case(10 + self.size_board // 2 - 150, self.height / 2 - 170,
