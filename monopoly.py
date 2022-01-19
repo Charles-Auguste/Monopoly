@@ -34,7 +34,7 @@ class Game():
         if self.height >= 900:
             self.size_board = 1056
         else :
-            self.size_board = 700
+            self.size_board = 660
 
 
     # BEGINNING OF THE GAME : MAIN MENU AND PLAYER SELECTION
