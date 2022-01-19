@@ -11,6 +11,8 @@ import pygame
 from pygame.locals import *
 from time import sleep
 
+
+
 # local source
 from monopoly.player import Player
 from monopoly.propriete import Property, Prison, GoToPrison, Taxes, TrainStation, Company, Case, Luck
