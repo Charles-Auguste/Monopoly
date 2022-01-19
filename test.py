@@ -1,8 +1,8 @@
-import importlib.resources
+# test multiples de 33,22,11
 
-def recup_path(template):
-    with importlib.resources.path('monopoly.config',template) as p:
-        path = p
-    return path
+def return_multiples():
+    for i in range(1000):
+        if (i%11 == 0 and i%22 == 0 and i%33 == 0):
+            print(i)
 
-print(recup_path('properties.txt'))
+return_multiples()
