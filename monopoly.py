@@ -869,6 +869,7 @@ class Game():
     def end_game(self, winning_player):
         end_screen = pygame.image.load('monopoly/pictures/end_screen.jpg')
         end_screen = end_screen.convert()
+        picture_rect = end_screen.get_rect()
         play = (winning_player != -1)
         while play:
             for event in pygame.event.get():
@@ -879,7 +880,8 @@ class Game():
                         play = False
 
             self.main_screen.fill(pygame.Color("white"))
-            self.main_screen.blit(end_screen, (0, 0))
+            self.main_screen.blit(end_screen,
+                                  (self.width / 2 - picture_rect[2] / 2, self.height / 2 - picture_rect[3] / 2))
             text_winner = text_format("Player " + str(winning_player) + " wins!", 50, black)
             text_winner_rect = text_winner.get_rect()
             text_continue = text_format("Press Enter to close", 50, black)
@@ -894,4 +896,4 @@ class Game():
 
 if __name__ == '__main__':
     new_game = Game()
-    new_game.run()
+    new_game.end_game("Samuel")

@@ -1,7 +1,9 @@
+
 import random
-from Monopoly_lite import affichage as aff
-from monopoly.propriete import *
-from monopoly.player import *
+import affichage as aff
+from propriete import *
+from player import *
+
 
 def read_properties(file):
     """Prend en entrée un fichier qui contient les informations des propriétés, renvoie une liste de Properties initialisées à l'aide du fichier"""
@@ -210,6 +212,7 @@ class Game:
         """Un tour de jeu pour un joueur"""
         aff.clear_console()
         print(aff.monopoly_char)
+        print(aff.manette_char)
         print("\n \n \n \n")
         print(" Time for ", player.name(), "to play !!! \n\n")
         print("██████████████████████████████████████████")
@@ -589,7 +592,7 @@ if __name__ == '__main__':
         print("\n \n You have to enter a number higher than 1 \n \n")
         print("\n \n Choose the number of players \n \n")
         nb_players = int(input(""))
-    new_game = Game(True,nb_players)
+    new_game = Game(False,nb_players)
     nb_players_in_game=nb_players
     id_current_player = random.randint(1,nb_players)
     while (nb_players_in_game>1):
@@ -600,4 +603,4 @@ if __name__ == '__main__':
             if (new_game.players[id_current_player].money() < 0):
                 nb_players_in_game-=1
         id_current_player+=1
-    new_game.end_game(True)
+    new_game.end_game(False)
