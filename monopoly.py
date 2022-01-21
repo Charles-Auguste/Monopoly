@@ -297,19 +297,6 @@ class Game():
         self.game_board.cases()[id_property_seller].set_owner(id_buyer)
         self.game_board.transaction(self.players[id_buyer], self.players[id_seller], value_exchange)
 
-    def display_properties(self, property_player):
-        for i in range(1, len(property_player) + 1):
-            if (property_player[i - 1].type() == "Property"):
-                nb_houses = property_player[i - 1].nb_houses()
-                if (nb_houses < 5):
-                    print(" ", i, " - ", property_player[i - 1].name(), " - Number of houses : ",
-                          nb_houses, "\n")
-                else:
-                    print(" ", i, " - ", property_player[i - 1].name(), " - Number of hotel : ",
-                          1, "\n")
-            else:
-                print(" ", i, " - ", property_player[i - 1].name(), "\n")
-
     def print_player_info(self, player, main_player):
         if main_player:
             if(player.id() == 1):
@@ -661,7 +648,7 @@ class Game():
                         if (id_property < 1 or id_property > len(property_player)):
                             self.print_instruction("The number you entered is invalid", None, None, None, None)
                         else:
-                            self.game_board.sell_property(player, property_player[id_property - 1].id())
+                            self.game_board.sell_property(player, property_player[id_property - 1].id(), self.print_instruction)
 
                 if (player.money() < 0):
                     self.print_instruction("You just lost the game!", None, None, None, None)
@@ -812,7 +799,7 @@ class Game():
                                         "Which property belonging to the other player do you want ? Enter the id diplayed in their recap above :"))
                                     if id_seller_property < 1 or id_seller_property > len(seller_properties):
                                         self.print_instruction("The number you entered is invalid", None, None, None, None)
-                                    elif self.game_board.houses_on_monopole(
+                                    elif seller_properties[id_seller_property -1].type() == "Property" and self.game_board.houses_on_monopole(
                                             seller_properties[id_seller_property - 1].id()) > 0:
                                         self.print_instruction(
                                             "You can't buy a house in a monopole where some houses are built", None,
