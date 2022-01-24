@@ -525,7 +525,7 @@ class Game():
                     dice_2 = random.randint(1, 6)
                     self.print_instruction(" You've got " + str(dice_1) + " and " + str(dice_2), None, None,None, None)
 
-                    b = self.game_board.cases()[player.position()].trying_to_escape_prison(dice_1, dice_2, player)
+                    b = self.game_board.cases()[player.position()].trying_to_escape_prison(dice_1, dice_2, player, self.print_instruction())
 
         ## Cas possibilité d'avancer ##
         if b:
