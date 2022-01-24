@@ -811,8 +811,8 @@ class Game():
                                             "Which property do you offer ? Enter the id diplayed in your recap above :"))
                                         if id_buyer_property < 1 or id_buyer_property > len(property_player):
                                             self.print_instruction("The number you entered is invalid", None, None, None, None)
-                                        elif (self.game_board.houses_on_monopole(
-                                                property_player[id_seller_property - 1].id()) > 0):
+                                        elif (property_player[id_buyer_property -1].type()=="Property" and self.game_board.houses_on_monopole(
+                                                property_player[id_buyer_property - 1].id()) > 0):
                                             self.print_instruction(
                                                 "You can't sell a house in a monopole where some houses are built",
                                                 None, None, None, None)
@@ -822,6 +822,10 @@ class Game():
                                             if (player.money() < price_offer):
                                                 self.print_instruction(
                                                     "You don't have enough money to make such an offer",
+                                                    None, None, None, None)
+                                            elif (self.players[id_seller].money() < -price_offer):
+                                                self.print_instruction(
+                                                    str(self.players[id_seller].name()) + " doesn't have enough money to accept such an offer",
                                                     None, None, None, None)
                                             else:
                                                 answer2 = self.print_instruction(

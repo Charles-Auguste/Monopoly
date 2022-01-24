@@ -117,7 +117,7 @@ class Board:
         return nb_house
 
     def sell_property(self,player: Player, id_property):
-        if (self.cases()[id_property].type=="Property"):
+        if (self.cases()[id_property].type()=="Property"):
             if(self.houses_on_monopole(id_property)>0):
                 print(" \n \n You have to sell all the houses of the monopole before selling this property \n \n")
             else:
@@ -530,7 +530,7 @@ class Game:
                             id_seller_property = int(input(""))
                             if (id_seller_property < 1 or id_seller_property > len(seller_properties)):
                                 print("\n The number you entered is invalid")
-                            elif (self.game_board.houses_on_monopole(
+                            elif (self.game_board.cases()[seller_properties[id_seller_property - 1].id()].type()== "Property" and self.game_board.houses_on_monopole(
                                     seller_properties[id_seller_property - 1].id()) > 0):
                                 print("\n \n You can't buy a house in a monopole where some houses are built \n \n")
                             else:
@@ -540,8 +540,8 @@ class Game:
                                 id_buyer_property = int(input(""))
                                 if (id_buyer_property < 1 or id_buyer_property > len(property_player)):
                                     print("\n The number you entered is invalid \n \n")
-                                elif (self.game_board.houses_on_monopole(
-                                        property_player[id_seller_property - 1].id()) > 0):
+                                elif (self.game_board.cases()[property_player[id_buyer_property - 1].id()].type()== "Property" self.game_board.houses_on_monopole(
+                                        property_player[id_buyer_property - 1].id()) > 0):
                                     print(
                                         "\n \n You can't sell a house in a monopole where some houses are built \n \n")
                                 else:
@@ -549,6 +549,8 @@ class Game:
                                     price_offer = int(input(""))
                                     if (player.money() < price_offer):
                                         print(" \n \n You don't have enough money to make such an offer \n \n")
+                                    elif(self.players[id_seller].money()<-price_offer):
+                                        print(" \n \n ",self.players[id_seller].name(), " doesn't have enough money to accept such an offer \n \n")
                                     else:
                                         print(
                                             "\n \n ", self.players[id_seller].name(),
