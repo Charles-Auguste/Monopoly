@@ -889,4 +889,5 @@ class Game():
 
 if __name__ == '__main__':
     new_game = Game()
+    new_game.run()
     new_game.end_game("Samuel")
