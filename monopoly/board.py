@@ -123,7 +123,7 @@ class Board:
 
     def sell_property(self, player, id_property, print_instruction = None):
         """vend la propriete d'id id_property du joueur player"""
-        if (self.cases()[id_property].type == "Property"):
+        if (self.cases()[id_property].type() == "Property"):
             if (self.houses_on_monopole(id_property) > 0):
                 if (print_instruction == None):
                     print(" \n \n You have to sell all the houses of the monopole before selling this property \n \n")
