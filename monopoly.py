@@ -299,19 +299,6 @@ class Game():
         self.game_board.cases()[id_property_seller].set_owner(id_buyer)
         self.game_board.transaction(self.players[id_buyer], self.players[id_seller], value_exchange)
 
-    def display_properties(self, property_player):
-        for i in range(1, len(property_player) + 1):
-            if (property_player[i - 1].type() == "Property"):
-                nb_houses = property_player[i - 1].nb_houses()
-                if (nb_houses < 5):
-                    print(" ", i, " - ", property_player[i - 1].name(), " - Number of houses : ",
-                          nb_houses, "\n")
-                else:
-                    print(" ", i, " - ", property_player[i - 1].name(), " - Number of hotel : ",
-                          1, "\n")
-            else:
-                print(" ", i, " - ", property_player[i - 1].name(), "\n")
-
     def print_player_info(self, player, main_player):
         if main_player:
             if(player.id() == 1):
@@ -663,7 +650,7 @@ class Game():
                         if (id_property < 1 or id_property > len(property_player)):
                             self.print_instruction("The number you entered is invalid", None, None, None, None)
                         else:
-                            self.game_board.sell_property(player, property_player[id_property - 1].id())
+                            self.game_board.sell_property(player, property_player[id_property - 1].id(), self.print_instruction)
 
                 if (player.money() < 0):
                     self.print_instruction("You just lost the game!", None, None, None, None)
@@ -814,7 +801,7 @@ class Game():
                                         "Which property belonging to the other player do you want ? Enter the id diplayed in their recap above :"))
                                     if id_seller_property < 1 or id_seller_property > len(seller_properties):
                                         self.print_instruction("The number you entered is invalid", None, None, None, None)
-                                    elif self.game_board.houses_on_monopole(
+                                    elif seller_properties[id_seller_property -1].type() == "Property" and self.game_board.houses_on_monopole(
                                             seller_properties[id_seller_property - 1].id()) > 0:
                                         self.print_instruction(
                                             "You can't buy a house in a monopole where some houses are built", None,
@@ -826,8 +813,8 @@ class Game():
                                             "Which property do you offer ? Enter the id diplayed in your recap above :"))
                                         if id_buyer_property < 1 or id_buyer_property > len(property_player):
                                             self.print_instruction("The number you entered is invalid", None, None, None, None)
-                                        elif (self.game_board.houses_on_monopole(
-                                                property_player[id_seller_property - 1].id()) > 0):
+                                        elif (property_player[id_buyer_property -1].type()=="Property" and self.game_board.houses_on_monopole(
+                                                property_player[id_buyer_property - 1].id()) > 0):
                                             self.print_instruction(
                                                 "You can't sell a house in a monopole where some houses are built",
                                                 None, None, None, None)
@@ -837,6 +824,10 @@ class Game():
                                             if (player.money() < price_offer):
                                                 self.print_instruction(
                                                     "You don't have enough money to make such an offer",
+                                                    None, None, None, None)
+                                            elif (self.players[id_seller].money() < -price_offer):
+                                                self.print_instruction(
+                                                    str(self.players[id_seller].name()) + " doesn't have enough money to accept such an offer",
                                                     None, None, None, None)
                                             else:
                                                 answer2 = self.print_instruction(
@@ -871,6 +862,7 @@ class Game():
     def end_game(self, winning_player):
         end_screen = pygame.image.load('monopoly/pictures/end_screen.jpg')
         end_screen = end_screen.convert()
+        picture_rect = end_screen.get_rect()
         play = (winning_player != -1)
         while play:
             for event in pygame.event.get():
@@ -881,7 +873,8 @@ class Game():
                         play = False
 
             self.main_screen.fill(pygame.Color("white"))
-            self.main_screen.blit(end_screen, (0, 0))
+            self.main_screen.blit(end_screen,
+                                  (self.width / 2 - picture_rect[2] / 2, self.height / 2 - picture_rect[3] / 2))
             text_winner = text_format("Player " + str(winning_player) + " wins!", 50, black)
             text_winner_rect = text_winner.get_rect()
             text_continue = text_format("Press Enter to close", 50, black)
@@ -896,4 +889,4 @@ class Game():
 
 if __name__ == '__main__':
     new_game = Game()
-    new_game.run()
+    new_game.end_game("Samuel")

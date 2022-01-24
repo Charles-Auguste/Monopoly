@@ -25,12 +25,9 @@ pygame.init()
 
 class Board:
     def __init__(self):
-        full_path = os.getcwd()
-        print(full_path)
         properties = read_properties(obt_path('monopoly.config','properties.txt'))
         with open(obt_path('monopoly.config','short_properties_name.txt'), "r") as tf:
             self._nom = tf.read().split('\n')
-        print("nom=",self._nom)
         self._cases = [Case("Start", 0)]
         c = 0
         n = 0
@@ -124,21 +121,30 @@ class Board:
                 nb_house += 1
         return nb_house
 
-    def sell_property(self, player, id_property):
+    def sell_property(self, player, id_property, print_instruction = None):
         """vend la propriete d'id id_property du joueur player"""
-        if (self.cases()[id_property].type == "Property"):
+        if (self.cases()[id_property].type() == "Property"):
             if (self.houses_on_monopole(id_property) > 0):
-                print(" \n \n You have to sell all the houses of the monopole before selling this property \n \n")
+                if (print_instruction == None):
+                    print(" \n \n You have to sell all the houses of the monopole before selling this property \n \n")
+                else:
+                    print_instruction("You have to sell all the houses of the monopole before selling this property", None, None, None, None)
             else:
                 self.cases()[id_property].set_owner(0)
                 value = self.cases()[id_property].value()
                 player.set_money(player.money() + value)
-                print(" \n \n You earned ", value, "€ \n \n")
+                if (print_instruction == None):
+                    print(" \n \n You earned ", value, "€ \n \n")
+                else:
+                    print_instruction("You earned "+ str(value) + "€", None, None, None, None)
         else:
             self.cases()[id_property].set_owner(0)
             value = self.cases()[id_property].value()
             player.set_money(player.money() + value)
-            print(" \n \n You earned ", value, "€ \n \n")
+            if (print_instruction == None):
+                print(" \n \n You earned ", value, "€ \n \n")
+            else:
+                print_instruction("You earned "+str(value)+"€", None, None, None, None)
 
     def show_board(self, screen,x_init : int, y_init : int, size : int, list_players : list, id_main_player : int) -> int:
 
@@ -273,7 +279,6 @@ class Board:
 
         for i in range(1, len(list_players)):
             x_position, y_position = grande_bijection(list_players[i].position(),x_init, y_init, size)
-            print(x_position,y_position)
 
             if list_players[i].id() == 2:
                 if not mini :
@@ -496,24 +501,24 @@ if __name__ == "__main__":
                    Player(4, "D", position=3)]
 
     pygame.display.update()
-
+    """
     # Test 1
     test_board = miniBoard()
     test_board.show_board(main_screen, screen_width//2 - 350 , screen_height//2 - 350, 700,list_player, 1)
     sleep(3)
-
+    """
     # Test 2
     pygame.draw.rect(main_screen, white, Rect(0, 0, screen_width, screen_height))
     test_board2 = Board()
     test_board2.show_board(main_screen,10,10,size_board,list_player,1)
-    sleep(3)
-
+    sleep(20)
+    """
     # Test 3
     pygame.draw.rect(main_screen, white, Rect(0, 0, screen_width, screen_height))
     test_board3 = Board()
     test_board2.show_board(main_screen, 10, 10, 700, list_player, 1)
-    sleep(3)
-
+    sleep(20)
+    """
 
     pygame.quit()
 
