@@ -148,10 +148,16 @@ class Game:
         else:
             aff.clear_console()
             self.players = [0]
-            for i in range (1,nb_players+1):
+            list_names = []
+            for i in range(1, nb_players + 1):
                 print("\n \n Write the name of the player created : \n ")
-                player_name=input("")
-                self.players.append(Player(i,player_name))
+                player_name = input("")
+                while (player_name in list_names):
+                    print("Two players can't have the same name.")
+                    print("Write another name : \n ")
+                    player_name = input("")
+                self.players.append(Player(i, player_name))
+                list_names.append(player_name)
             self.game_board = Board(False)
 
     def test_game(self):
@@ -519,6 +525,8 @@ class Game:
                     id_seller = self.find_player(player_name)
                     if (id_seller == 0):
                         print("\n The player you entered does not exist. \n \n")
+                    elif (player_name==player.name()):
+                        print("\n You can't make an offer to yourself. \n \n")
                     else:
                         seller_properties = self.game_board.list_property(self.players[id_seller])
                         if (len(seller_properties) == 0):
@@ -530,7 +538,7 @@ class Game:
                             id_seller_property = int(input(""))
                             if (id_seller_property < 1 or id_seller_property > len(seller_properties)):
                                 print("\n The number you entered is invalid")
-                            elif (self.game_board.cases()[seller_properties[id_seller_property - 1].id()].type()== "Property" and self.game_board.houses_on_monopole(
+                            elif (seller_properties[id_seller_property - 1].type()=="Property" and self.game_board.cases()[seller_properties[id_seller_property - 1].id()].type()== "Property" and self.game_board.houses_on_monopole(
                                     seller_properties[id_seller_property - 1].id()) > 0):
                                 print("\n \n You can't buy a house in a monopole where some houses are built \n \n")
                             else:
@@ -540,7 +548,7 @@ class Game:
                                 id_buyer_property = int(input(""))
                                 if (id_buyer_property < 1 or id_buyer_property > len(property_player)):
                                     print("\n The number you entered is invalid \n \n")
-                                elif (self.game_board.cases()[property_player[id_buyer_property - 1].id()].type()== "Property" self.game_board.houses_on_monopole(
+                                elif (property_player[id_buyer_property - 1].type() =="Property" and self.game_board.houses_on_monopole(
                                         property_player[id_buyer_property - 1].id()) > 0):
                                     print(
                                         "\n \n You can't sell a house in a monopole where some houses are built \n \n")
@@ -605,4 +613,8 @@ if __name__ == '__main__':
             if (new_game.players[id_current_player].money() < 0):
                 nb_players_in_game-=1
         id_current_player+=1
+    for i in range(1,len(new_game.players)) :
+        if (new_game.players[i].money()>0):
+            id_winner = i
     new_game.end_game(False)
+    print("Congratulations ", new_game.players[id_winner].name(), ", you've just won the game !!!!")
