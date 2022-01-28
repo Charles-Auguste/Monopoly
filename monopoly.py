@@ -578,7 +578,7 @@ class Game():
                     welcome_text += "Welcome Home !!!"
                 elif self.game_board.is_owned(player.position()) is not None:
                     id_of_owner = self.game_board.is_owned(player.position())
-                    welcome_text += " You must pay a tax to player " + str(id_of_owner) + "!"
+                    welcome_text += " You must pay a tax to player " + self.players[id_of_owner].name() + "!"
 
                     ## Cas Compagnie ##
                     if (self.game_board.cases()[player.position()].type() == "Company"):
