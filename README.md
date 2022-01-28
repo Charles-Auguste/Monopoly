@@ -2,7 +2,7 @@
 Our project was to build a fully functional and good-looking game of Monopoly.
 
 ### The repository is made of :
-- A python package (monopoly) that contains the main classes of the game :
+- A python package (board_game) that contains the main classes of the game :
   - Board 
   - Player
   - Property
