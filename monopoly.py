@@ -325,12 +325,12 @@ class Game():
             self.main_screen.blit(text_format("It's " + player.name() + "'s turn!", 30, red),
                                   (self.size_board + 60, 5 * self.height // 100))
             self.main_screen.blit(
-                text_format("Bank account : " + str(player.money()) + " k€", 18, black),
+                text_format(player.name() + "'s bank account : " + str(player.money()) + " k€", 18, black),
                 (self.size_board + 60, 10 * self.height // 100))
 
         property_player = self.game_board.list_property(player)
         if len(property_player) > 0:
-            self.main_screen.blit(text_format("Properties :", 18, black),
+            self.main_screen.blit(text_format(player.name() + "'s properties :", 18, black),
                                   (self.size_board + 60, 10 * self.height // 100 + 20))
 
         for i in range(1, len(property_player) + 1):
@@ -358,7 +358,7 @@ class Game():
         pygame.draw.rect(self.main_screen, pygame.Color("white"), clear_rectangle)
 
     def clear_right_panel(self):
-        clear_rectangle = pygame.Rect(self.size_board + 60, 0, self.width, 75 * self.height // 100)
+        clear_rectangle = pygame.Rect(self.size_board + 60, 0, self.width, 70 * self.height // 100)
         pygame.draw.rect(self.main_screen, pygame.Color("white"), clear_rectangle)
 
     def print_instruction(self, instruction_1, instruction_2,instruction_3,instruction_4, yes_no_choice):
@@ -767,6 +767,7 @@ class Game():
                                     self.print_instruction("The player you chose does not have any property", None,
                                                            None, None, None)
                                 else:
+                                    self.clear_right_panel()
                                     self.print_player_info(self.players[id_player], False)
                                     answer2 = ""
                                     while (answer2 != "no"):
@@ -784,6 +785,7 @@ class Game():
                                                 seller_properties[id_property - 1].show_case(self.height / 2 - 150,
                                                                                              self.height / 2 - 170,
                                                                                              self.main_screen)
+
                         elif answer == 5:
                             player_name = self.enter_response(
                                 "Write the name of the player to whom you want to make an offer :")
@@ -852,9 +854,9 @@ class Game():
                         else:
                             self.print_instruction("You entered an incorrect answer", None, None, None, None)
                         if answer != 6:
+                            self.refresh_player_info(player)
                             answer = int(self.player_choice_menu())
 
-                self.refresh_player_info(player)
                 self.print_instruction("This is the end of your turn", "Here is a brief recap of your situation", " ", "Press enter to continue", None)
 
 
