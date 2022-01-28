@@ -14,8 +14,8 @@ import pygame.locals as pl
 import pygame_textinput
 
 #local import
-from monopoly.utility_functions import *
-from monopoly.color import *
+from board_game.utility_functions import *
+from board_game.color import *
 
 pygame.init()
 

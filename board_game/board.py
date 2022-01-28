@@ -14,19 +14,19 @@ import os
 import importlib.resources
 
 # local source
-import monopoly.text_input as input
-from monopoly.text_input import text_format
-from monopoly.color import *
-from monopoly.player import *
-from monopoly.propriete import *
-from monopoly.utility_functions import print_basic_text,read_properties,mini_bijection,grande_bijection, obt_path
+import board_game.text_input as input
+from board_game.text_input import text_format
+from board_game.color import *
+from board_game.player import *
+from board_game.propriete import *
+from board_game.utility_functions import print_basic_text,read_properties,mini_bijection,grande_bijection, obt_path
 
 pygame.init()
 
 class Board:
     def __init__(self):
-        properties = read_properties(obt_path('monopoly.config','properties.txt'))
-        with open(obt_path('monopoly.config','short_properties_name.txt'), "r") as tf:
+        properties = read_properties(obt_path('board_game.config','properties.txt'))
+        with open(obt_path('board_game.config','short_properties_name.txt'), "r") as tf:
             self._nom = tf.read().split('\n')
         self._cases = [Case("Start", 0)]
         c = 0
@@ -252,7 +252,7 @@ class Board:
 
 
         # Luck and taxe icons
-        luck = pygame.image.load(obt_path('monopoly.pictures','MINI_MINI_CHANCE.png'))
+        luck = pygame.image.load(obt_path('board_game.pictures','MINI_MINI_CHANCE.png'))
         luck_width, luck_height = luck.get_size()
         screen.blit(luck,(x_init + 5*taille_case//2- luck_width // 2, y_init + taille_case//2 - luck_height // 2))
         screen.blit(luck,(x_init + 7*taille_case//2- luck_width // 2, y_init  +21*taille_case//2 - luck_height // 2))
@@ -261,7 +261,7 @@ class Board:
         screen.blit(luck, (x_init + 21*taille_case//2 - luck_width // 2, y_init + 7*taille_case//2- luck_height // 2))
         screen.blit(luck, (x_init + 21*taille_case//2 - luck_width // 2, y_init + 13*taille_case//2- luck_height // 2))
 
-        taxes = pygame.image.load(obt_path('monopoly.pictures','MINI_MINI_TAXE.png'))
+        taxes = pygame.image.load(obt_path('board_game.pictures','MINI_MINI_TAXE.png'))
         taxes_width, taxes_height = taxes.get_size()
         screen.blit(taxes,(x_init + 13*taille_case//2- taxes_width // 2, y_init  +21*taille_case//2 - taxes_height // 2))
         screen.blit(taxes,(x_init + 21*taille_case//2 - taxes_width // 2, y_init + 17*taille_case//2- taxes_height // 2))
@@ -282,33 +282,33 @@ class Board:
 
             if list_players[i].id() == 2:
                 if not mini :
-                    pion2 = pygame.image.load(obt_path('monopoly.pictures','MINI_PION2.png'))
+                    pion2 = pygame.image.load(obt_path('board_game.pictures','MINI_PION2.png'))
                 if mini :
-                    pion2 = pygame.image.load(obt_path('monopoly.pictures','MINI_MINI_PION2.png'))
+                    pion2 = pygame.image.load(obt_path('board_game.pictures','MINI_MINI_PION2.png'))
                 pion2_width, pion2_height = pion2.get_size()
                 screen.blit(pion2,(x_position - taille_case//4  - pion2_width//2, y_position - taille_case//4 - pion2_height//2))
 
             if list_players[i].id() == 1:
                 if not mini :
-                    pion1 = pygame.image.load(obt_path('monopoly.pictures','MINI_PION1.png'))
+                    pion1 = pygame.image.load(obt_path('board_game.pictures','MINI_PION1.png'))
                 if mini :
-                    pion1 = pygame.image.load(obt_path('monopoly.pictures','MINI_MINI_PION1.png'))
+                    pion1 = pygame.image.load(obt_path('board_game.pictures','MINI_MINI_PION1.png'))
                 pion1_width, pion1_height = pion1.get_size()
                 screen.blit(pion1,(x_position - taille_case//4  - pion1_width//2, y_position + taille_case//4 - pion1_height//2))
 
             if list_players[i].id() == 3:
                 if not mini :
-                    pion3 = pygame.image.load(obt_path('monopoly.pictures','MINI_PION3.png'))
+                    pion3 = pygame.image.load(obt_path('board_game.pictures','MINI_PION3.png'))
                 if mini :
-                    pion3 = pygame.image.load(obt_path('monopoly.pictures','MINI_MINI_PION3.png'))
+                    pion3 = pygame.image.load(obt_path('board_game.pictures','MINI_MINI_PION3.png'))
                 pion3_width, pion3_height = pion3.get_size()
                 screen.blit(pion3,(x_position + taille_case//4 - pion3_width//2, y_position- taille_case//4 - pion3_height//2))
 
             if list_players[i].id() == 4:
                 if not mini :
-                    pion4 = pygame.image.load(obt_path('monopoly.pictures','MINI_PION4.png'))
+                    pion4 = pygame.image.load(obt_path('board_game.pictures','MINI_PION4.png'))
                 if mini :
-                    pion4 = pygame.image.load(obt_path('monopoly.pictures','MINI_MINI_PION4.png'))
+                    pion4 = pygame.image.load(obt_path('board_game.pictures','MINI_MINI_PION4.png'))
                 pion4_width, pion4_height = pion4.get_size()
                 screen.blit(pion4,(x_position + taille_case//4  - pion4_width//2, y_position + taille_case//4 - pion4_height//2))
 
@@ -319,7 +319,7 @@ class miniBoard(Board):
     def __init__(self):
         # Plus complexe parce qu'il faut différencier toutes les cases
         # Mettre le bon nom de fichier puis ne plus y toucher
-        properties = read_properties(obt_path('monopoly.config','mini_properties.txt'))
+        properties = read_properties(obt_path('board_game.config','mini_properties.txt'))
         self._cases = [Case("Start", 0)]
         c = 0
         for i in range(1, 24):
@@ -428,14 +428,14 @@ class miniBoard(Board):
         print_basic_text(screen, "Go to Jail", x_init + 65 * size // 70, y_init + 5 * size // 70 )
 
         # show luck and tax cases
-        luck = pygame.image.load(obt_path('monopoly.pictures','MINI_CHANCE.png'))
+        luck = pygame.image.load(obt_path('board_game.pictures','MINI_CHANCE.png'))
         luck_width, luck_height = luck.get_size()
         screen.blit(luck,
                     (x_init + 5 * size // 70 - luck_width // 2, y_init + 45 * size // 70 - luck_height // 2))
         screen.blit(luck,
                     (x_init + 65 * size // 70 - luck_width // 2, y_init + 25 * size // 70 - luck_height // 2))
 
-        taxes = pygame.image.load(obt_path('monopoly.pictures','MINI_TAXE.png'))
+        taxes = pygame.image.load(obt_path('board_game.pictures','MINI_TAXE.png'))
         taxes_width, taxes_height = taxes.get_size()
         screen.blit(taxes,
                     (x_init + 15 * size // 70 - taxes_width // 2, y_init + 5 * size // 70 - taxes_height // 2))
@@ -451,22 +451,22 @@ class miniBoard(Board):
         for i in range(1,len(list_players)):
             x_position, y_position = mini_bijection(list_players[i].position(),x_init,y_init, size)
             if list_players[i].id() == 2:
-                pion2 = pygame.image.load(obt_path('monopoly.pictures','MINI_PION2.png'))
+                pion2 = pygame.image.load(obt_path('board_game.pictures','MINI_PION2.png'))
                 pion2_width, pion2_height = pion2.get_size()
                 screen.blit(pion2,
                             (x_position + 2*size//70 - pion2_width//2, y_position - 3*size//70 - pion2_height//2))
             if list_players[i].id() == 1:
-                pion1 = pygame.image.load(obt_path('monopoly.pictures','MINI_PION1.png'))
+                pion1 = pygame.image.load(obt_path('board_game.pictures','MINI_PION1.png'))
                 pion1_width, pion1_height = pion1.get_size()
                 screen.blit(pion1,
                             (x_position - 2*size//70 - pion1_width//2, y_position - 3*size//70 - pion1_height//2))
             if list_players[i].id() == 3:
-                pion3 = pygame.image.load(obt_path('monopoly.pictures','MINI_PION3.png'))
+                pion3 = pygame.image.load(obt_path('board_game.pictures','MINI_PION3.png'))
                 pion3_width, pion3_height = pion3.get_size()
                 screen.blit(pion3,
                             (x_position - 2*size//70 - pion3_width//2, y_position + 3*size//70 - pion3_height//2))
             if list_players[i].id() == 4:
-                pion4 = pygame.image.load(obt_path('monopoly.pictures','MINI_PION4.png'))
+                pion4 = pygame.image.load(obt_path('board_game.pictures','MINI_PION4.png'))
                 pion4_width, pion4_height = pion4.get_size()
                 screen.blit(pion4,
                             (x_position + 2*size//70 - pion4_width//2, y_position + 3*size//70 - pion4_height//2))
@@ -501,24 +501,24 @@ if __name__ == "__main__":
                    Player(4, "D", position=3)]
 
     pygame.display.update()
-    """
+
     # Test 1
     test_board = miniBoard()
     test_board.show_board(main_screen, screen_width//2 - 350 , screen_height//2 - 350, 700,list_player, 1)
     sleep(3)
-    """
+
     # Test 2
     pygame.draw.rect(main_screen, white, Rect(0, 0, screen_width, screen_height))
     test_board2 = Board()
     test_board2.show_board(main_screen,10,10,size_board,list_player,1)
-    sleep(20)
-    """
+    sleep(3)
+
     # Test 3
     pygame.draw.rect(main_screen, white, Rect(0, 0, screen_width, screen_height))
     test_board3 = Board()
     test_board2.show_board(main_screen, 10, 10, 700, list_player, 1)
-    sleep(20)
-    """
+    sleep(3)
+
 
     pygame.quit()
 

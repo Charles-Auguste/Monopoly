@@ -13,8 +13,8 @@ import importlib.resources
 import pygame_textinput
 
 #local source
-from monopoly.color import *
-from monopoly.propriete import Property
+from board_game.color import *
+from board_game.propriete import Property
 
 pygame.init()
 
