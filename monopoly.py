@@ -500,7 +500,7 @@ class Game():
 
 
         self.refresh_player_info(player)
-        self.print_instruction("Time for " + player.name() + " to play !", None,None,None, None)
+        self.print_instruction("Time for " + player.name() + " to play !", None,None,None,None)
 
         # Chargement des propriétés que possède le joueur qui joue son tour
         property_player = self.game_board.list_property(player)
@@ -855,6 +855,7 @@ class Game():
                             self.print_instruction("You entered an incorrect answer", None, None, None, None)
                         if answer != 6:
                             self.refresh_player_info(player)
+                            self.game_board.cases()[player.position()].show_case(10 + self.size_board // 2 - 150, self.height / 2 - 170, self.main_screen)
                             answer = int(self.player_choice_menu())
 
                 self.print_instruction("This is the end of your turn", "Here is a brief recap of your situation", " ", "Press enter to continue", None)
