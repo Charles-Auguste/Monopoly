@@ -12,6 +12,8 @@ from pygame.locals import *
 from time import sleep
 import importlib.resources
 
+
+
 # local source
 from monopoly.player import Player
 from monopoly.propriete import Property, Prison, GoToPrison, Taxes, TrainStation, Company, Case, Luck
@@ -32,7 +34,7 @@ class Game():
         if self.height >= 900:
             self.size_board = 1056
         else :
-            self.size_board = 700
+            self.size_board = 660
 
 
     # BEGINNING OF THE GAME : MAIN MENU AND PLAYER SELECTION
@@ -523,7 +525,7 @@ class Game():
                     dice_2 = random.randint(1, 6)
                     self.print_instruction(" You've got " + str(dice_1) + " and " + str(dice_2), None, None,None, None)
 
-                    b = self.game_board.cases()[player.position()].trying_to_escape_prison(dice_1, dice_2, player)
+                    b = self.game_board.cases()[player.position()].trying_to_escape_prison(dice_1, dice_2, player, self.print_instruction())
 
         ## Cas possibilité d'avancer ##
         if b:
