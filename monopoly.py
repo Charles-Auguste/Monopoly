@@ -621,6 +621,7 @@ class Game():
                         self.game_board.cases()[player.position()].value()) + "k€","Do you want to buy it ?", None, ["yes", "no"])
                         if answer == "yes":
                             self.game_board.buy_property(player)
+                            property_player=self.game_board.list_property(player)
                         else:
                             pass
 
