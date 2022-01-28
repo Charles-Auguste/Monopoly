@@ -213,7 +213,7 @@ class Game():
                 name_3 = text_player3.show_box()
                 if (nb_player == 3):
                     end_signal = True
-                    
+
             if (nb_player >= 4 and name_4 == ""):
                 name_4 = text_player4.show_box()
                 end_signal = True
@@ -273,15 +273,19 @@ class Game():
     def run(self):
         if self.playing_status:
             self.id_current_player = random.randint(1, self.nb_player)
+            nb_player_init = self.nb_player
             while (self.nb_player > 1):
                 if (self.id_current_player > self.nb_player):
                     self.id_current_player = 1
-                if (self.players[self.id_current_player].money() > 0):
+                if (self.players[self.id_current_player].money() >= 0):
                     self.player_tour(self.players[self.id_current_player])
                     if (self.players[self.id_current_player].money() < 0):
                         self.nb_player -= 1
                 self.id_current_player += 1
-        self.end_game(self.debug)
+        for i in range(nb_player_init):
+            if(self.players[i+1].money() >= 0):
+                winner = self.players[i+1].name()
+        self.end_game(winner)
 
 
     # MAIN LOOP OF THE GAME
@@ -665,7 +669,6 @@ class Game():
                     while answer != 6:
                         ## Affichage informations ##
                         if (answer == 1):
-                            self.display_properties(property_player)
                             id_property = int(
                                 self.enter_response("On which property would you like to have information ?"))
                             if (id_property < 1 or id_property > len(property_player) or (property_player[
@@ -831,8 +834,8 @@ class Game():
                                                     None, None, None, None)
                                             elif (self.players[id_seller].money() < -price_offer):
                                                 self.print_instruction(
-                                                    str(self.players[id_seller].name()) + " doesn't have enough money to accept such an offer",
-                                                    None, None, None, None)
+                                                    str(self.players[id_seller].name()) + " doesn't have enough money", "to accept such an offer",
+                                                    None, None, None)
                                             else:
                                                 answer2 = self.print_instruction(
                                                     self.players[id_seller].name() + ", do you accept to exchange ",
@@ -859,7 +862,8 @@ class Game():
                             self.game_board.cases()[player.position()].show_case(10 + self.size_board // 2 - 150, self.height / 2 - 170, self.main_screen)
                             answer = int(self.player_choice_menu())
 
-                self.print_instruction("This is the end of your turn", "Here is a brief recap of your situation", " ", "Press enter to continue", None)
+        self.refresh_player_info(player)
+        self.print_instruction("This is the end of your turn", "Here is a brief recap of your situation", " ", "Press enter to continue", None)
 
 
 
@@ -895,4 +899,3 @@ class Game():
 if __name__ == '__main__':
     new_game = Game()
     new_game.run()
-    new_game.end_game("Samuel")
