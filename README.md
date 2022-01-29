@@ -11,7 +11,8 @@ Our project was to build a fully functional and good-looking game of Monopoly.
 - A complete version of the Game which is divided into two parts:
   - Minipoly.py, a smaller version of the game (beware of luck spaces !!!) 
   - Monopoly.py, the classic one (in French !!)
-  Note : if you want to quit the game, just press (Echap) at any moment of the tour
+ 
+### Note : if you want to quit the game, just press (Echap) at any moment of the tour
 
 Feel free to test everything !!!
 #
