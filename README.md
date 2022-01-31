@@ -1,6 +1,10 @@
 # Monopoly
 Our project was to build a fully functional and good-looking game of Monopoly.
 
+### Import
+- pygame
+- importlib
+
 ### The repository is made of :
 - A python package (board_game) that contains the main classes of the game :
   - Board 
